@@ -1,4 +1,4 @@
-
+package atividade2;
 
 import javax.swing.JOptionPane;
 
