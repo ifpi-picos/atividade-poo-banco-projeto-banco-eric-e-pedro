@@ -1,6 +1,6 @@
 package atividade2;
 
-public class Endereço {
+public class Endereco {
     protected String rua;
     protected int cep;
     protected int numeroDaCasa;
