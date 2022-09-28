@@ -7,12 +7,16 @@ private int agencia ;
 private int nmuConta;
 private Double saldo;
 private Cliente cliente;
+private String usuario;
+private String senha;
 
-public Conta(int nmuConta,  Cliente cliente) {
+public Conta(int nmuConta, String usuario , String senha,Cliente cliente) {
     this.cliente = cliente;
     this.saldo = 0.0;
     this.nmuConta = nmuConta;
     this.agencia = 2211;
+    this.usuario = usuario;
+    this.senha = senha;
 }
 public int getAgencia() {
     return agencia;
@@ -62,12 +66,24 @@ public void depositar(Double depositar){
 
         }
     }
-    @Override
+    
     public String toString() {
     return "\n número da conta: " + this.getNmuConta()
     + "\n Agencia: " + this.getAgencia()
     + "\n Cliente: " + this.getCliente().getNome()
     + "\n SALDO: " + this.getSaldo();
+    }
+    public String getUsuario() {
+        return usuario;
+    }
+    public void setUsuario(String usuario) {
+        this.usuario = usuario;
+    }
+    public String getSenha() {
+        return senha;
+    }
+    public void setSenha(String senha) {
+        this.senha = senha;
     }
 
 

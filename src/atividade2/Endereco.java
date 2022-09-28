@@ -1,8 +1,9 @@
 package atividade2;
 
 public class Endereco {
+    
     protected String rua;
-    protected int cep;
+    protected String cep;
     protected int numeroDaCasa;
     protected String bairro;
     protected String cidade;
@@ -11,9 +12,7 @@ public class Endereco {
     public String getRua() {
         return rua;
     }
-
-
-    public int getCep() {
+    public String getCep() {
         return cep;
     }
 
@@ -35,6 +34,24 @@ public class Endereco {
 
     public String getEstado() {
         return estado;
+    }
+    public void setRua(String rua) {
+        this.rua = rua;
+    }
+    public void setCep(String cep) {
+        this.cep = cep;
+    }
+    public void setNumeroDaCasa(int numeroDaCasa) {
+        this.numeroDaCasa = numeroDaCasa;
+    }
+    public void setBairro(String bairro) {
+        this.bairro = bairro;
+    }
+    public void setCidade(String cidade) {
+        this.cidade = cidade;
+    }
+    public void setEstado(String estado) {
+        this.estado = estado;
     }
 
 }
