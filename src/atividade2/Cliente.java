@@ -12,12 +12,7 @@ public class Cliente extends Endereco  {
         this.nome = nome;
         this.cpf = cpf;
         this.dataDeNacimento = dataDeNacimento;
-        super.rua = rua;
-        super.cep = cep;
-        super.numeroDaCasa = numDaCasa;
-        super.bairro = bairro;
-        super.cidade = cidade;
-        super.estado = estado;
+       
     }
     public void setNome(String nome) {
         this.nome = nome;
