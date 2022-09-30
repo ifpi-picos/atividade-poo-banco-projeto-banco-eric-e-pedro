@@ -159,7 +159,7 @@ operacoes();
         }
         return conta;
         
-    }rrayList<Conta>();
+    }
     public static Conta fazerLogi(String usuario ,String senha){
         Conta conta = null;
         if (contas.size() > 0){
