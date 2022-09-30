@@ -2,12 +2,12 @@ package atividade2;
 
 public class Endereco {
     
-    protected String rua;
-    protected String cep;
-    protected int numeroDaCasa;
-    protected String bairro;
-    protected String cidade;
-    protected String estado;
+    private String rua;
+    private String cep;
+    private int numeroDaCasa;
+    private String bairro;
+    private String cidade;
+    private String UF;
 
     public String getRua() {
         return rua;
@@ -32,8 +32,8 @@ public class Endereco {
     }
 
 
-    public String getEstado() {
-        return estado;
+    public String getUF() {
+        return UF;
     }
     public void setRua(String rua) {
         this.rua = rua;
@@ -50,8 +50,8 @@ public class Endereco {
     public void setCidade(String cidade) {
         this.cidade = cidade;
     }
-    public void setEstado(String estado) {
-        this.estado = estado;
+    public void setUF(String UF) {
+        this.UF = UF;
     }
 
 }
