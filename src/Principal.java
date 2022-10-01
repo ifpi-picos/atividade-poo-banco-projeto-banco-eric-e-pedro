@@ -8,10 +8,10 @@ import Banco.Conta;
 import Banco.Endereco;
 public class Principal {
 	
-   static HashSet <Conta> contas;
+   static ArrayList <Conta> contas;
     public static void main(String[] args) {
         
-        contas = new HashSet<Conta>();
+        contas = new ArrayList<Conta>();
         
         String[] resposta = new String[]{"INICIAR","SAIR"}; 
     int opcao = JOptionPane.showOptionDialog(null, "BEM VINDO AO BANCO SPFC", "BANCO MAUT", JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE, null, resposta,0);
@@ -28,6 +28,8 @@ public class Principal {
     
     }
            
+    // função  para fazer deposito em determinada conta
+
    public static void deposito(){
     int numConta = Integer.parseInt(JOptionPane.showInputDialog(null, "INFORME NUMERO DA CONTA!"));
    Conta conta = informarConta(numConta);
@@ -43,6 +45,8 @@ public class Principal {
 operacoes();
    }
 
+       // função  para fazer saque em determinada conta
+
    public static void saque(){
     int numConta = Integer.parseInt(JOptionPane.showInputDialog(null, "INFORME NUMERO DA CONTA!!"));
    Conta conta = informarConta(numConta);
@@ -56,6 +60,9 @@ operacoes();
  }
 operacoes();
 }
+
+    // função para fazer tranferencia em determinada conta
+
    public static void transferir(){
     int numContaREmetente = Integer.parseInt(JOptionPane.showInputDialog(null, "INFORME NUMERO DA CONTA DO REMETENTE:"));
 
@@ -76,10 +83,12 @@ operacoes();
     operacoes();
    }
 
+   // função para verifcar o status atual de uma determniada conta
+
    public static void status(){
     if(contas.size() > 0){
         for(Conta conta: contas){
-            JOptionPane.showMessageDialog(null, conta.hashCode(), "contas", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, conta, "contas", JOptionPane.INFORMATION_MESSAGE);
         }
     }
     else{
@@ -109,12 +118,12 @@ operacoes();
         break;
         case 4:
         opcoes();
-        break;
-            
+        break;        
+    }  
     }
-    
-    }
+
     // função criada com o propósito de msotrar um menu proncipal
+
     public static void opcoes(){
 
         String[] resposta = new String[]{"CRIAR CONTA","LOGIN","ENCERRAR"}; 
@@ -151,6 +160,7 @@ operacoes();
         }  
         
     // função com o propósito de verificar o número da conta de determninado cliente
+
     public static Conta informarConta(int numeroDaConta){
         Conta conta = null;
         if (contas.size() > 0){
@@ -163,6 +173,8 @@ operacoes();
         return conta;
         
     }
+    
+    // função para verificar se o usuario e senha estão corretos 
 
     public static Conta login(String usuario , String senha){
         Conta conta = null;
@@ -176,6 +188,7 @@ operacoes();
         return conta;
         
     }
+    // função para logar na conta do cliente
     
     public static void fazerLogin(){
         String usuario = JOptionPane.showInputDialog(null, "USUARIO;");
