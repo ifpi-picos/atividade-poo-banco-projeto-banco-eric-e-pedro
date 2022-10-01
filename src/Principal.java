@@ -1,18 +1,18 @@
-
-
 import java.util.ArrayList;
 import javax.swing.JOptionPane;
-
+import atividade2.Cliente;
 import atividade2.Conta;
-
 public class Principal {
 
     static ArrayList <Conta> contas;
-
     public static void main(String[] args) {
+
+        contas = new ArrayList<Conta>();
+        
         String[] resposta = new String[]{"INICIAR","SAIR"}; 
     int opcao = JOptionPane.showOptionDialog(null, "BEM VINDO AO BANCO MAUT", "BANCO MAUT", JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE, null, resposta,0);
     
+
     switch(opcao){
         case 0:
         opcoes();
@@ -25,7 +25,7 @@ public class Principal {
     }
            
    public static void deposito(){
-    int numConta = Integer.parseInt(JOptionPane.showInputDialog(null, " INFORME NUMERO DA CONTA!"));
+    int numConta = Integer.parseInt(JOptionPane.showInputDialog(null, "INFORME NUMERO DA CONTA!"));
    Conta conta = informarConta(numConta);
  if (conta != null){
     Double depositar = Double.parseDouble(JOptionPane.showInputDialog(null, "INFORME O VALOR QUE DESEJA DEPOSITAR:"));
@@ -72,7 +72,7 @@ operacoes();
     operacoes();
    }
 
-   public static void contas(){
+   public static void status(){
     if(contas.size() > 0){
         for(Conta conta: contas){
             JOptionPane.showMessageDialog(null, conta, "contas", JOptionPane.INFORMATION_MESSAGE);
@@ -82,13 +82,11 @@ operacoes();
         JOptionPane.showMessageDialog(null, "NÃO HÁ CONTAS CADSTRADAS!", null, JOptionPane.DEFAULT_OPTION);
     }
 operacoes();
-
    }
-
        // função para mostar qual tipo de operação o cliente vai escolher
 
    public static void operacoes(){
-    String[] resposta = new String[]{"DEPOSITAR","SACAR","TRANSFERÊNCIA","CONTAS","VOLTAR"};
+    String[] resposta = new String[]{"DEPOSITAR","SACAR","TRANSFERÊNCIA","STATUS","VOLTAR"};
     
     int opcao = JOptionPane.showOptionDialog(null, "ESCOLHA SUA OPERAÇÂO:", "BANCO MAUT", JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE, null, resposta,0);
     
@@ -103,7 +101,7 @@ operacoes();
         transferir();
         break;
         case 3:
-        contas();
+        status();
         break;
         case 4:
         opcoes();
@@ -124,7 +122,6 @@ operacoes();
         break;
         case 1:
         fazerLogin();
-        
         break;
         case 2:
         System.exit(1);
@@ -135,19 +132,17 @@ operacoes();
     // função com o propósito de criar uma conta para determninado cliente
 
     public static void criarConta(){
-            contas = new ArrayList<Conta>();
+            
 
         Cliente cliente = new Cliente(JOptionPane.showInputDialog(null, "NOME DO CLIENTE:" ),JOptionPane.showInputDialog(null, "INFORME CPF DO CLIENTE:"),JOptionPane.showInputDialog(null, "DATA DE NASCIMENTO DO CLIENTE:"),JOptionPane.showInputDialog(null,"RUA:"),JOptionPane.showInputDialog(null, "CEP:"),Integer.parseInt(JOptionPane.showInputDialog(null, "NÚMERO DA CASA:")),JOptionPane.showInputDialog(null, "BAIRRO:"),JOptionPane.showInputDialog(null, "CIDADE:"),JOptionPane.showInputDialog(null,"ESTADO:")); 
         
         Conta conta = new Conta(Integer.parseInt(JOptionPane.showInputDialog(null, "INFORME NÚMERO DA CONTA:")),JOptionPane.showInputDialog(null, "INFORME UN NOME DE USUARIO:"),JOptionPane.showInputDialog(null, "INFORME UMA SENHA DE CADASTRO:"),cliente);
-        
         contas.add(conta);
         opcoes();
-          
-    }
-
+ 
+        }  
+        
     // função com o propósito de verificar o número da conta de determninado cliente
-
     public static Conta informarConta(int numeroDaConta){
         Conta conta = null;
         if (contas.size() > 0){
@@ -160,11 +155,12 @@ operacoes();
         return conta;
         
     }
-    public static Conta fazerLogi(String usuario ,String senha){
+
+    public static Conta login(String usuario , String senha){
         Conta conta = null;
         if (contas.size() > 0){
             for(Conta c : contas){
-                if (c.getUsuario().equals(usuario) && c.getSenha().equals(senha)){
+                if (c.getUsuario().equals(usuario) && c.getSenha().equals(senha)) {
                 conta = c;   
             }
         }
@@ -172,24 +168,15 @@ operacoes();
         return conta;
         
     }
-
+    
     public static void fazerLogin(){
-
-        String usuario = JOptionPane.showInputDialog(null, "USUARIO:");
+        String usuario = JOptionPane.showInputDialog(null, "USUARIO;");
         String senha = JOptionPane.showInputDialog(null, "SENHA:");
-            Conta conta = fazerLogi(usuario, senha);
-        
-        if (conta.getUsuario() .equals(usuario) && conta.getSenha().equals(senha)){
-            operacoes();
-        }  
-        
-        else{
-JOptionPane.showMessageDialog(null, "USUARIO OU SENHA INCORRETO!!");
-opcoes();
-        
-        }
-      
-    }
 
+        Conta conta = login(usuario, senha);
+        if (conta != null){
+            operacoes();
+        }
+    }
 }
 

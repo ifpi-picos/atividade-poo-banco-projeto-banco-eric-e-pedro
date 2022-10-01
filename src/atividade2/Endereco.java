@@ -16,16 +16,13 @@ public class Endereco {
         return cep;
     }
 
-
     public int getNumeroDaCasa() {
         return numeroDaCasa;
     }
 
-
     public String getBairro() {
         return bairro;
     }
-
 
     public String getCidade() {
         return cidade;

@@ -1,12 +1,14 @@
 package atividade2;
 
-public class Cliente extends Endereco  {
+public class Cliente  extends Endereco{
     private String nome;
     private String cpf;
     private String dataDeNacimento;
     private Conta conta;
+  
+    public Cliente(){
 
-    
+    }
     public Cliente(String nome, String cpf,String dataDeNacimento,String rua,String cep ,int numDaCasa,String bairro ,String cidade,String estado) {
     
         this.nome = nome;

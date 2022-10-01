@@ -3,6 +3,7 @@ package atividade2;
 import javax.swing.JOptionPane;
 
 public class Conta{
+
 private int agencia ;
 private int nmuConta;
 private Double saldo;
@@ -17,6 +18,7 @@ public Conta(int nmuConta, String usuario , String senha,Cliente cliente) {
     this.agencia = 2211;
     this.usuario = usuario;
     this.senha = senha;
+
 }
 public int getAgencia() {
     return agencia;
@@ -85,8 +87,5 @@ public void depositar(Double depositar){
     public void setSenha(String senha) {
         this.senha = senha;
     }
-
-
-
 }
 
