@@ -2,6 +2,7 @@ import java.util.ArrayList;
 import javax.swing.JOptionPane;
 import atividade2.Cliente;
 import atividade2.Conta;
+import atividade2.Endereco;
 public class Principal {
 
     static ArrayList <Conta> contas;
@@ -131,11 +132,16 @@ operacoes();
 
     // função com o propósito de criar uma conta para determninado cliente
 
-    public static void criarConta(){
-            
+    public static void criarConta(){2
 
-        Cliente cliente = new Cliente(JOptionPane.showInputDialog(null, "NOME DO CLIENTE:" ),JOptionPane.showInputDialog(null, "INFORME CPF DO CLIENTE:"),JOptionPane.showInputDialog(null, "DATA DE NASCIMENTO DO CLIENTE:"),JOptionPane.showInputDialog(null,"RUA:"),JOptionPane.showInputDialog(null, "CEP:"),Integer.parseInt(JOptionPane.showInputDialog(null, "NÚMERO DA CASA:")),JOptionPane.showInputDialog(null, "BAIRRO:"),JOptionPane.showInputDialog(null, "CIDADE:"),JOptionPane.showInputDialog(null,"ESTADO:")); 
-        
+        Endereco endereco = new Endereco();
+            
+        Cliente cliente = new Cliente(JOptionPane.showInputDialog(null, "NOME DO CLIENTE:" ),JOptionPane.showInputDialog(null, "INFORME CPF DO CLIENTE:"),JOptionPane.showInputDialog(null, "DATA DE NASCIMENTO DO CLIENTE:"),endereco);
+
+         endereco = new Endereco( JOptionPane.showInputDialog(null,"RUA:"),JOptionPane.showInputDialog(null, "CEP:"),Integer.parseInt(JOptionPane.showInputDialog(null, "NÚMERO DA CASA:")),JOptionPane.showInputDialog(null, "BAIRRO:"),JOptionPane.showInputDialog(null, "CIDADE:"),JOptionPane.showInputDialog(null,"ESTADO:")); 
+
+    
+  
         Conta conta = new Conta(Integer.parseInt(JOptionPane.showInputDialog(null, "INFORME NÚMERO DA CONTA:")),JOptionPane.showInputDialog(null, "INFORME UN NOME DE USUARIO:"),JOptionPane.showInputDialog(null, "INFORME UMA SENHA DE CADASTRO:"),cliente);
         contas.add(conta);
         opcoes();

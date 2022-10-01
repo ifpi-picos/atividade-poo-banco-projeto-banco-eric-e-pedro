@@ -1,25 +1,25 @@
 package atividade2;
 
-public class Cliente  extends Endereco{
+public class Cliente {
     private String nome;
     private String cpf;
     private String dataDeNacimento;
     private Conta conta;
+    private Endereco endereco;
   
-    public Cliente(){
-
-    }
-    public Cliente(String nome, String cpf,String dataDeNacimento,String rua,String cep ,int numDaCasa,String bairro ,String cidade,String estado) {
+    public Cliente(String nome, String cpf,String dataDeNacimento, Endereco endereco) {
     
         this.nome = nome;
         this.cpf = cpf;
         this.dataDeNacimento = dataDeNacimento;
-        super.rua = rua;
-        super.cep = cep;
-        super.numeroDaCasa = numDaCasa;
-        super.bairro = bairro;
-        super.cidade = cidade;
-        super.estado = estado;
+        
+       /*  this.endereco.setRua(rua);
+        this.endereco.setCep(cep);
+        this.endereco.setNumeroDaCasa(numDaCasa);
+        this.endereco.setBairro(bairro);
+        this.endereco.setCidade(cidade);
+        this.endereco.setEstado(estado);*/
+       
     }
     public void setNome(String nome) {
         this.nome = nome;
@@ -37,6 +37,12 @@ public class Cliente  extends Endereco{
         return conta;
     }
     
-   
+    public void setEndereco(Endereco endereco) {
+        this.endereco = endereco;
+    }
+    public Endereco getEndereco() {
+        return endereco;
+    }
+
    
 }
