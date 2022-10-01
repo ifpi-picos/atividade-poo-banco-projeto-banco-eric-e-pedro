@@ -1,4 +1,4 @@
-package atividade2;
+package Banco;
 
 public class Cliente {
     private String nome;

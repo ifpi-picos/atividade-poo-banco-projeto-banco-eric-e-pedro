@@ -1,6 +1,10 @@
-package atividade2;
+package Banco;
 
 import javax.swing.JOptionPane;
+
+import org.jcp.xml.dsig.internal.dom.Utils;
+
+import formatações.Formatacao;
 
 public class Conta{
 
@@ -73,7 +77,7 @@ public void depositar(Double depositar){
     return "\n número da conta: " + this.getNmuConta()
     + "\n Agencia: " + this.getAgencia()
     + "\n Cliente: " + this.getCliente().getNome()
-    + "\n SALDO: " + this.getSaldo();
+    + "\n SALDO: " + Formatacao.coversao(this.getSaldo());
     }
     public String getUsuario() {
         return usuario;

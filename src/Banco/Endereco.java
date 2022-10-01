@@ -1,4 +1,4 @@
-package atividade2;
+package Banco;
 public class Endereco {
     
     private String rua;

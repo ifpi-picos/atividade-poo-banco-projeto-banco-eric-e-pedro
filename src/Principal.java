@@ -1,14 +1,20 @@
 import java.util.ArrayList;
+import java.util.HashSet;
+import java.util.LinkedHashSet;
+import java.util.Set;
+
 import javax.swing.JOptionPane;
-import atividade2.Cliente;
-import atividade2.Conta;
-import atividade2.Endereco;
+
+import Banco.Cliente;
+import Banco.Conta;
+import Banco.Endereco;
 public class Principal {
+	
 
-    static ArrayList <Conta> contas;
+   static ArrayList <Conta> contas;
     public static void main(String[] args) {
-
-        contas = new ArrayList<Conta>();
+        
+        contas = new ArrayList<Conta>(new HashSet<Conta>());
         
         String[] resposta = new String[]{"INICIAR","SAIR"}; 
     int opcao = JOptionPane.showOptionDialog(null, "BEM VINDO AO BANCO MAUT", "BANCO MAUT", JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE, null, resposta,0);
@@ -132,7 +138,7 @@ operacoes();
 
     // função com o propósito de criar uma conta para determninado cliente
 
-    public static void criarConta(){2
+    public static void criarConta(){
 
         Endereco endereco = new Endereco();
             
@@ -140,10 +146,9 @@ operacoes();
 
          endereco = new Endereco( JOptionPane.showInputDialog(null,"RUA:"),JOptionPane.showInputDialog(null, "CEP:"),Integer.parseInt(JOptionPane.showInputDialog(null, "NÚMERO DA CASA:")),JOptionPane.showInputDialog(null, "BAIRRO:"),JOptionPane.showInputDialog(null, "CIDADE:"),JOptionPane.showInputDialog(null,"ESTADO:")); 
 
-    
-  
         Conta conta = new Conta(Integer.parseInt(JOptionPane.showInputDialog(null, "INFORME NÚMERO DA CONTA:")),JOptionPane.showInputDialog(null, "INFORME UN NOME DE USUARIO:"),JOptionPane.showInputDialog(null, "INFORME UMA SENHA DE CADASTRO:"),cliente);
         contas.add(conta);
+        
         opcoes();
  
         }  
@@ -182,6 +187,21 @@ operacoes();
         Conta conta = login(usuario, senha);
         if (conta != null){
             operacoes();
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "USUARIO OU SENHA INCORRETOS TENTE NOVAMENTE...", "ERRO",JOptionPane.ERROR_MESSAGE);
+            
+            String[] resposta = new String[]{"TENTAR NOVAMENTE","VOLTAR"};
+            int opcao = JOptionPane.showOptionDialog(null, "ESCOLHA UMA OPÇÃO", "OPÇÕES", JOptionPane.YES_NO_OPTION, JOptionPane.INFORMATION_MESSAGE, null, resposta, 0);
+
+            switch(opcao){
+                case 0:
+                fazerLogin();
+                break;
+                case 1:
+                opcoes();
+                break;        
+            }
         }
     }
 }
