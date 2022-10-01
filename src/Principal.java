@@ -2,22 +2,19 @@ import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
 import java.util.Set;
-
 import javax.swing.JOptionPane;
-
 import Banco.Cliente;
 import Banco.Conta;
 import Banco.Endereco;
 public class Principal {
 	
-
-   static ArrayList <Conta> contas;
+   static HashSet <Conta> contas;
     public static void main(String[] args) {
         
-        contas = new ArrayList<Conta>(new HashSet<Conta>());
+        contas = new HashSet<Conta>();
         
         String[] resposta = new String[]{"INICIAR","SAIR"}; 
-    int opcao = JOptionPane.showOptionDialog(null, "BEM VINDO AO BANCO MAUT", "BANCO MAUT", JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE, null, resposta,0);
+    int opcao = JOptionPane.showOptionDialog(null, "BEM VINDO AO BANCO SPFC", "BANCO MAUT", JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE, null, resposta,0);
     
 
     switch(opcao){
@@ -82,7 +79,7 @@ operacoes();
    public static void status(){
     if(contas.size() > 0){
         for(Conta conta: contas){
-            JOptionPane.showMessageDialog(null, conta, "contas", JOptionPane.INFORMATION_MESSAGE);
+            JOptionPane.showMessageDialog(null, conta.hashCode(), "contas", JOptionPane.INFORMATION_MESSAGE);
         }
     }
     else{

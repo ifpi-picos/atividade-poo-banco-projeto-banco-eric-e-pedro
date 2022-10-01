@@ -12,14 +12,7 @@ public class Cliente {
         this.nome = nome;
         this.cpf = cpf;
         this.dataDeNacimento = dataDeNacimento;
-        
-       /*  this.endereco.setRua(rua);
-        this.endereco.setCep(cep);
-        this.endereco.setNumeroDaCasa(numDaCasa);
-        this.endereco.setBairro(bairro);
-        this.endereco.setCidade(cidade);
-        this.endereco.setEstado(estado);*/
-       
+                
     }
     public void setNome(String nome) {
         this.nome = nome;
