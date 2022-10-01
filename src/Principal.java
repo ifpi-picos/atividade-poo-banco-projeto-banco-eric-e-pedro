@@ -1,3 +1,4 @@
+import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
 import java.util.LinkedHashSet;
@@ -12,11 +13,11 @@ public class Principal {
     public static void main(String[] args) {
         
         contas = new ArrayList<Conta>();
-        
+        SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyy");
+
         String[] resposta = new String[]{"INICIAR","SAIR"}; 
     int opcao = JOptionPane.showOptionDialog(null, "BEM VINDO AO BANCO SPFC", "BANCO MAUT", JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE, null, resposta,0);
     
-
     switch(opcao){
         case 0:
         opcoes();
@@ -189,7 +190,7 @@ operacoes();
         
     }
     // função para logar na conta do cliente
-    
+
     public static void fazerLogin(){
         String usuario = JOptionPane.showInputDialog(null, "USUARIO;");
         String senha = JOptionPane.showInputDialog(null, "SENHA:");

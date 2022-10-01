@@ -90,60 +90,8 @@ public void depositar(Double depositar){
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    @Override
-    public int hashCode() {
-        final int prime = 31;
-        int result = 1;
-        result = prime * result + agencia;
-        result = prime * result + ((digito == null) ? 0 : digito.hashCode());
-        result = prime * result + nmuConta;
-        result = prime * result + ((saldo == null) ? 0 : saldo.hashCode());
-        result = prime * result + ((cliente == null) ? 0 : cliente.hashCode());
-        result = prime * result + ((usuario == null) ? 0 : usuario.hashCode());
-        result = prime * result + ((senha == null) ? 0 : senha.hashCode());
-        return result;
-    }
-    @Override
-    public boolean equals(Object obj) {
-        if (this == obj)
-            return true;
-        if (obj == null)
-            return false;
-        if (getClass() != obj.getClass())
-            return false;
-        Conta other = (Conta) obj;
-        if (agencia != other.agencia)
-            return false;
-        if (digito == null) {
-            if (other.digito != null)
-                return false;
-        } else if (!digito.equals(other.digito))
-            return false;
-        if (nmuConta != other.nmuConta)
-            return false;
-        if (saldo == null) {
-            if (other.saldo != null)
-                return false;
-        } else if (!saldo.equals(other.saldo))
-            return false;
-        if (cliente == null) {
-            if (other.cliente != null)
-                return false;
-        } else if (!cliente.equals(other.cliente))
-            return false;
-        if (usuario == null) {
-            if (other.usuario != null)
-                return false;
-        } else if (!usuario.equals(other.usuario))
-            return false;
-        if (senha == null) {
-            if (other.senha != null)
-                return false;
-        } else if (!senha.equals(other.senha))
-            return false;
-        return true;
-    }
-
+    
+    
 }
 
 
