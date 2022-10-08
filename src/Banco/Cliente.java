@@ -1,13 +1,15 @@
 package Banco;
 
+import java.time.LocalDate;
+
 public class Cliente {
     private String nome;
     private String cpf;
-    private String dataDeNacimento;
+    private LocalDate dataDeNacimento;
     private Conta conta;
     private Endereco endereco;
   
-    public Cliente(String nome, String cpf,String dataDeNacimento, Endereco endereco) {
+    public Cliente(String nome, String cpf,String string, Endereco endereco) {
     
         this.nome = nome;
         this.cpf = cpf;
@@ -23,7 +25,7 @@ public class Cliente {
     public String getCpf() {
         return cpf;
     }
-    public String getDataDeNacimento() {
+    public LocalDate getDataDeNacimento() {
         return dataDeNacimento;
     }
     public Conta getConta() {
@@ -36,4 +38,5 @@ public class Cliente {
     public Endereco getEndereco() {
         return endereco;
     }
+   
 }
