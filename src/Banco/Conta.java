@@ -2,6 +2,7 @@ package Banco;
 
 import javax.swing.JOptionPane;
 
+import Banco.tiposDeConta.ContaCorrente;
 import formatações.Formatacao;
 public class Conta{
 
@@ -13,11 +14,13 @@ private Cliente cliente;
 private String usuario;
 private String senha;
 
-public Conta( String usuario , String senha,Cliente cliente) {
+public Conta() {
+}
+
+public Conta(String senha,Cliente cliente) {
     this.cliente = cliente;
     this.saldo = 0.0;
     this.numConta =  (int) (10000000 + Math.random() * 99999999);
-
     this.agencia = 2211;
     this.usuario = usuario;
     this.senha = senha;
@@ -96,15 +99,11 @@ public void depositar(Double depositar){
     public void setSenha(String senha) {
         this.senha = senha;
     }
-    public String login(){
-    String senha = JOptionPane.showInputDialog(null,"SENHA:");
-    this.senha = senha;
-    return this.senha;
+   
     
 }
 
-    
-}
+
         
 
 

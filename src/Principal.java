@@ -11,13 +11,13 @@ public class Principal {
    static ArrayList <Conta> contas;
    static HashSet <Integer> lista;
     public static void main(String[] args) {
-
-         lista = new HashSet<Integer>();
+        
+        lista = new HashSet<Integer>();
         
         contas = new ArrayList<Conta>();
         SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyy");
 
-        String[] resposta = new String[]{"INICIAR","SAIR"}; 
+    String[] resposta = new String[]{"INICIAR","SAIR"}; 
     int opcao = JOptionPane.showOptionDialog(null, "BEM VINDO AO BANCO SPFC", "BANCO MAUT", JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE, null, resposta,0);
     
     switch(opcao){
@@ -89,17 +89,19 @@ operacoes();
    // função para verifcar o status atual de uma determniada conta
 
    public static void status(){
-    String senha = JOptionPane.showInputDialog(null, "PRIMEIRO INFORME SUA SENHA:");
-
+    
+ String s = senha;
     if(contas.size() > 0){
-        for(Conta conta: contas){
-            if (conta.getSenha().equals(senha)) {
+        
+        for(Conta conta: contas)
+
+            if (conta.getSenha().equals(s)) {
             JOptionPane.showMessageDialog(null, conta.statusDaConta(), "contas", JOptionPane.INFORMATION_MESSAGE);
             operacoes();
             
             
         }
-    }}
+    }
     else{
         JOptionPane.showMessageDialog(null, "NÃO HÁ CONTAS CADSTRADAS!", null, JOptionPane.DEFAULT_OPTION);
         opcoes();
@@ -138,7 +140,7 @@ operacoes();
 
     public static void opcoes(){
 
-    String[] resposta = new String[]{"CRIAR CONTA","OPERAÇÕES","ENCERRAR"}; 
+    String[] resposta = new String[]{"CRIAR CONTA","LOGIN","ENCERRAR"}; 
     int opcao = JOptionPane.showOptionDialog(null, "ESCOLHA UMA OPÇÃO:", "BANCO SPFC", JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE, null, resposta,0);
     
     switch(opcao){
@@ -146,7 +148,7 @@ operacoes();
         criarConta();
         break;
         case 1:
-        operacoes();
+        fazerLogin();;
         break;
         case 2:
         System.exit(1);
@@ -155,7 +157,7 @@ operacoes();
     }
 
     // função com o propósito de criar uma conta para determninado cliente
-
+ 
     public static void criarConta(){
 
         Endereco endereco = new Endereco();
@@ -176,13 +178,15 @@ operacoes();
          endereco = new Endereco(rua,cep,numeroDaCasa,bairro,cidade,estado);
 
         cliente.setEndereco(endereco);
-        Conta conta = new Conta(JOptionPane.showInputDialog(null, "INFORME UM NOME DE USUARIO:"),JOptionPane.showInputDialog(null, "INFORME UMA SENHA DE CADASTRO:"),cliente);
+
+        String senhaDeLoString = JOptionPane.showInputDialog(null, "INFORME UMA SENHA DE CADASTRO:");
+        Conta conta = new Conta(senhaDeLoString,cliente);
     
         if(lista.add(conta.getNmuConta())){
 
         contas.add(conta); 
         opcoes();
-    
+
 
         }
         else{
@@ -238,6 +242,30 @@ operacoes();
 
 opcoes();
     }
-         
+    private static String senha;
+    public static void fazerLogin() {
+         senha = JOptionPane.showInputDialog("SENHA:");
+         if (contas.size() > 0){
+        for (Conta c: contas){
+            
+            if(c.getSenha().equals(senha)){
+                operacoes();
+                }
+                if(c.getSenha() != c.getSenha()){
+                    opcoes();
+                }
+
+                }
+            }
+        
+        else{
+            JOptionPane.showMessageDialog(null, "OPS OUVE UM ERRO ESSA CONTA NÃO EXISTE!");
+            opcoes();
+        }
+      JOptionPane.showMessageDialog(null, "USUARIO OU SENHA INCORRETO","BANCO SPFC" ,0);
+      opcoes();
+    }
+
 }
+
 
