@@ -11,8 +11,7 @@ public class ContaCorrente extends Conta {
     private Double chequeEsprcial;
 
     public ContaCorrente(String usuario, String senha, Cliente cliente) {
-        super( senha, cliente);
-    
+        super( senha, cliente);   
     }
 
 

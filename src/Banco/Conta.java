@@ -13,6 +13,7 @@ private Double saldo;
 private Cliente cliente;
 private String usuario;
 private String senha;
+private String tipo;
 
 public Conta() {
 }
