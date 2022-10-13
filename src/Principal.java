@@ -1,8 +1,8 @@
 import java.text.SimpleDateFormat;
-import java.time.LocalDate;
 import java.util.ArrayList;
 import java.util.HashSet;
 import javax.swing.JOptionPane;
+
 import Banco.Cliente;
 import Banco.Conta;
 import Banco.Endereco;
@@ -10,11 +10,16 @@ public class Principal {
 	
    static ArrayList <Conta> contas;
    static HashSet <Integer> lista;
+   static ArrayList <Cliente> clientes;;
+
     public static void main(String[] args) {
         
         lista = new HashSet<Integer>();
         
         contas = new ArrayList<Conta>();
+
+        clientes = new ArrayList<Cliente>();
+
         SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyy");
 
     String[] resposta = new String[]{"INICIAR","SAIR"}; 
@@ -140,7 +145,7 @@ operacoes();
 
     public static void opcoes(){
 
-    String[] resposta = new String[]{"CRIAR CONTA","LOGIN","ENCERRAR"}; 
+    String[] resposta = new String[]{"CRIAR CONTA","CADASTRAR CLIENTE","LOGIN","ENCERRAR"}; 
     int opcao = JOptionPane.showOptionDialog(null, "ESCOLHA UMA OPÇÃO:", "BANCO SPFC", JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE, null, resposta,0);
     
     switch(opcao){
@@ -148,19 +153,66 @@ operacoes();
         criarConta();
         break;
         case 1:
-        fazerLogin();;
+        cadastrarCliente();
         break;
         case 2:
+        fazerLogin();
+        case 3:
         System.exit(1);
         break;
     }
     }
 
     // função com o propósito de criar uma conta para determninado cliente
- 
+ private static String cpf;
     public static void criarConta(){
 
-        Endereco endereco = new Endereco();
+       // Endereco endereco = new Endereco();
+            
+       /*  String nome = JOptionPane.showInputDialog(null,"NOME DO CLIENTE:");
+        String cpf = JOptionPane.showInputDialog(null,"QUAL SEU CPF:");
+        String data = JOptionPane.showInputDialog(null,"SUA DATA DE NASCIMENTO:");
+
+        Cliente cliente = new Cliente(nome, cpf, data, endereco);
+         
+         String rua = JOptionPane.showInputDialog(null,"NOME DA RUA:");
+         String cep = JOptionPane.showInputDialog(null, "INFORME SEU CEP:");
+         int numeroDaCasa = Integer.parseInt(JOptionPane.showInputDialog(null, "NÚMERO DA CASA:"));
+         String bairro = JOptionPane.showInputDialog(null, "DIGA O SEU BAIRRO:");
+         String cidade = JOptionPane.showInputDialog(null, "DIGA SUA  CIDADE:");
+         String estado = JOptionPane.showInputDialog(null,"DIGA SEU ESTADO:");
+
+         endereco = new Endereco(rua,cep,numeroDaCasa,bairro,cidade,estado);
+
+        cliente.setEndereco(endereco);*/
+       
+       
+        Cliente cliente = new Cliente();
+
+        String senhaDeLogin = JOptionPane.showInputDialog(null, "INFORME UMA SENHA DE CADASTRO:");
+        Conta conta = new Conta(senhaDeLogin,cliente);
+
+
+        for (Cliente c: clientes){
+        cpf  = JOptionPane.showInputDialog(null, "INFORME CPF DO CLIENTE:");
+        cpf = c.getCpf();
+    
+        if(lista.add(conta.getNmuConta()) && c.getCpf().equals(cpf)){
+
+        contas.add(conta); 
+        opcoes();
+
+
+        }
+        else{
+            JOptionPane.showMessageDialog(null, "IMPOSSIVEL ADICIONAR SUA CONTA:", null, 0);
+            opcoes();
+        }
+    }
+        }
+        
+        public static void cadastrarCliente(){
+            Endereco endereco = new Endereco();
             
         String nome = JOptionPane.showInputDialog(null,"NOME DO CLIENTE:");
         String cpf = JOptionPane.showInputDialog(null,"QUAL SEU CPF:");
@@ -179,22 +231,10 @@ operacoes();
 
         cliente.setEndereco(endereco);
 
-        String senhaDeLoString = JOptionPane.showInputDialog(null, "INFORME UMA SENHA DE CADASTRO:");
-        Conta conta = new Conta(senhaDeLoString,cliente);
-    
-        if(lista.add(conta.getNmuConta())){
-
-        contas.add(conta); 
+        clientes.add(cliente);
         opcoes();
 
-
         }
-        else{
-            JOptionPane.showMessageDialog(null, "IMPOSSIVEL ADICIONAR SUA CONTA:", null, 0);
-            opcoes();
-        }
- 
-        }  
         
     // função com o propósito de verificar o número da conta de determninado cliente
 
@@ -212,20 +252,20 @@ operacoes();
     }
 
     public static void dadosDoCliente(){
-    
-   for(Conta c: contas){
+        String s = senha;
+   for(Cliente cl: clientes){
+    for(Conta c : contas){
     if (c != null){
-        String senha = JOptionPane.showInputDialog(null, "DIGITE SUA SENHA:");
-        if(c.getSenha().equals(senha)){
-            JOptionPane.showMessageDialog(null,"CLIENTE: "+c.getCliente().getNome()
-            + "\nDATA DE NASCIMENTO: " +c.getCliente().getDataDeNacimento()
-            + "\nCPF: "+ c.getCliente().getCpf()
-            + "\nRUA: "+ c.getCliente().getEndereco().getRua()
-            + "\nCEP: " +c.getCliente().getEndereco().getCep()
-            + "\nNÚMERO DA CASA: "+ c.getCliente().getEndereco().getNumeroDaCasa()
-            + "\nBAIRRO: "+ c.getCliente().getEndereco().getBairro()
-            + "\nCIDADE: "+c.getCliente().getEndereco().getCidade()
-            + "\nUF: "+ c.getCliente().getEndereco().getUF());
+        if(c.getSenha().equals(s)){
+            JOptionPane.showMessageDialog(null,"CLIENTE: "+cl.getNome()
+             + "\nDATA DE NASCIMENTO: " +cl.getDataDeNacimento()
+            + "\nCPF: "+ cl.getCpf()
+            + "\nRUA: "+ cl.getEndereco().getRua()
+            + "\nCEP: " +cl.getEndereco().getCep()
+            + "\nNÚMERO DA CASA: "+ cl.getEndereco().getNum_Da_Casa()
+            + "\nBAIRRO: "+ cl.getEndereco().getBairro()
+            + "\nCIDADE: "+cl.getEndereco().getCidade()
+            + "\nUF: "+ cl.getEndereco().getRua());
             operacoes();
         }
         else{
@@ -239,7 +279,7 @@ operacoes();
         opcoes();
     }
 }
-
+   }
 opcoes();
     }
     private static String senha;
@@ -267,4 +307,5 @@ opcoes();
     }
 
 }
+
 

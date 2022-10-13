@@ -2,7 +2,7 @@ package Banco;
 
 import javax.swing.JOptionPane;
 
-import Banco.tiposDeConta.ContaCorrente;
+
 import formatações.Formatacao;
 public class Conta{
 
@@ -84,8 +84,8 @@ public void depositar(Double depositar){
     public String statusDaConta() {
     return "\n número da conta: " + this.getNmuConta()
     + "\n Agencia: " + this.getAgencia()
-    + "\n Cliente: " + this.getCliente().getNome()
-    + "\n SALDO: " + Formatacao.coversao(this.getSaldo());
+    + "\n Cliente: " + this.getCliente().getNome();
+  //  + "\n SALDO: " + Formatacao.coversao(this.getSaldo());
     
     }
     public String getUsuario() {
@@ -99,6 +99,10 @@ public void depositar(Double depositar){
     }
     public void setSenha(String senha) {
         this.senha = senha;
+    }
+
+    public void setCliente(Cliente cliente) {
+        this.cliente = cliente;
     }
    
     

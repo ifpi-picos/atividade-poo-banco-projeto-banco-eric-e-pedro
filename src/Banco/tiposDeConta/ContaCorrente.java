@@ -6,12 +6,14 @@ import Banco.Cliente;
 import Banco.Conta;
 
 
+
 public class ContaCorrente extends Conta {
 
-    private Double chequeEsprcial;
+    private Double chequeEspecial;
 
     public ContaCorrente(String usuario, String senha, Cliente cliente) {
-        super( senha, cliente);   
+        super( senha, cliente);
+           
     }
 
 
