@@ -6,25 +6,26 @@ import javax.swing.JOptionPane;
 import formatações.Formatacao;
 public class Conta{
 
-private int agencia ;
+private int agencia;
 private String digito;
 private int numConta;
 private Double saldo;
 private Cliente cliente;
 private String usuario;
 private String senha;
-private String tipo;
+protected String tipo;
 
 public Conta() {
 }
 
-public Conta(String senha,Cliente cliente) {
+public Conta(String senha,Cliente cliente,String tipo) {
     this.cliente = cliente;
     this.saldo = 0.0;
-    this.numConta =  (int) (10000000 + Math.random() * 99999999);
+    this.numConta =  (int) (10000000 + Math.random() * 89999999);
     this.agencia = 2211;
     this.usuario = usuario;
     this.senha = senha;
+    this.tipo = tipo;
 
 }
 
@@ -82,10 +83,11 @@ public void depositar(Double depositar){
     }
     
     public String statusDaConta() {
-    return "\n número da conta: " + this.getNmuConta()
+    return "\n Tipo: " +this.getTipo()
+    + "\n número da conta: " + this.getNmuConta()
     + "\n Agencia: " + this.getAgencia()
-    + "\n Cliente: " + this.getCliente().getNome();
-  //  + "\n SALDO: " + Formatacao.coversao(this.getSaldo());
+    + "\n Cliente: " + this.getCliente().getNome()
+    + "\n SALDO: " + Formatacao.coversao(this.getSaldo());
     
     }
     public String getUsuario() {
@@ -103,6 +105,9 @@ public void depositar(Double depositar){
 
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
+    }
+    public String getTipo() {
+        return tipo;
     }
    
     

@@ -1,12 +1,13 @@
 package Banco;
 
-
 public class Cliente  {
     private String nome;
     private String cpf;
     private String dataDeNacimento;
     private Endereco endereco;
     private Conta conta;
+    
+    private String senhaCliente;
 
     public Cliente(){
 
@@ -18,6 +19,7 @@ public class Cliente  {
         this.cpf = cpf;
         this.dataDeNacimento = dataDeNacimento;
         this.endereco = endereco;
+
     }
     public void setNome(String nome) {
         this.nome = nome;
@@ -53,7 +55,9 @@ public class Cliente  {
         this.conta = conta;
     }
     
-   
+    public String getSenhaCliente() {
+        return senhaCliente;
+    }
    
 }
 

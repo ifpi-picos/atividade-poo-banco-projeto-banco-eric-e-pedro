@@ -6,11 +6,13 @@ import javax.swing.JOptionPane;
 import Banco.Cliente;
 import Banco.Conta;
 import Banco.Endereco;
+import Banco.tiposDeConta.ContaCorrente;
+import Banco.tiposDeConta.ContaPoupanca;
 public class Principal {
 	
-   static ArrayList <Conta> contas;
+    static ArrayList <Conta> contas;
    static HashSet <Integer> lista;
-   static ArrayList <Cliente> clientes;;
+   static ArrayList <Cliente> clientes;
 
     public static void main(String[] args) {
         
@@ -43,8 +45,12 @@ public class Principal {
    Conta conta = informarConta(numConta);
  if (conta != null){
     Double depositar = Double.parseDouble(JOptionPane.showInputDialog(null, "INFORME O VALOR QUE DESEJA DEPOSITAR:"));
+    if (conta.getTipo().equalsIgnoreCase("Corrente")){
     conta.depositar(depositar);
-      
+    }
+    else if(conta.getTipo().equalsIgnoreCase("Poupança")){
+        conta.depositar(depositar);
+    } 
  }
  else{
     JOptionPane.showMessageDialog(null, "CONTA INEXISTENTE!!","DEPOSITO",JOptionPane.ERROR_MESSAGE);
@@ -94,8 +100,7 @@ operacoes();
    // função para verifcar o status atual de uma determniada conta
 
    public static void status(){
-    
- String s = senha;
+    String s =  JOptionPane.showInputDialog(null,"IMFORME A SUA SENHA:");
     if(contas.size() > 0){
         
         for(Conta conta: contas)
@@ -103,8 +108,7 @@ operacoes();
             if (conta.getSenha().equals(s)) {
             JOptionPane.showMessageDialog(null, conta.statusDaConta(), "contas", JOptionPane.INFORMATION_MESSAGE);
             operacoes();
-            
-            
+                   
         }
     }
     else{
@@ -145,7 +149,7 @@ operacoes();
 
     public static void opcoes(){
 
-    String[] resposta = new String[]{"CRIAR CONTA","CADASTRAR CLIENTE","LOGIN","ENCERRAR"}; 
+    String[] resposta = new String[]{"CRIAR CONTA","CADASTRAR CLIENTE","OPERAÇÕES","ENCERRAR"}; 
     int opcao = JOptionPane.showOptionDialog(null, "ESCOLHA UMA OPÇÃO:", "BANCO SPFC", JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE, null, resposta,0);
     
     switch(opcao){
@@ -156,7 +160,7 @@ operacoes();
         cadastrarCliente();
         break;
         case 2:
-        fazerLogin();
+       operacoes();
         case 3:
         System.exit(1);
         break;
@@ -166,56 +170,82 @@ operacoes();
     // função com o propósito de criar uma conta para determninado cliente
  private static String cpf;
     public static void criarConta(){
+        ContaCorrente cc = new ContaCorrente();
+        ContaPoupanca cp = new ContaPoupanca();
 
-       // Endereco endereco = new Endereco();
-            
-       /*  String nome = JOptionPane.showInputDialog(null,"NOME DO CLIENTE:");
-        String cpf = JOptionPane.showInputDialog(null,"QUAL SEU CPF:");
-        String data = JOptionPane.showInputDialog(null,"SUA DATA DE NASCIMENTO:");
 
-        Cliente cliente = new Cliente(nome, cpf, data, endereco);
-         
-         String rua = JOptionPane.showInputDialog(null,"NOME DA RUA:");
-         String cep = JOptionPane.showInputDialog(null, "INFORME SEU CEP:");
-         int numeroDaCasa = Integer.parseInt(JOptionPane.showInputDialog(null, "NÚMERO DA CASA:"));
-         String bairro = JOptionPane.showInputDialog(null, "DIGA O SEU BAIRRO:");
-         String cidade = JOptionPane.showInputDialog(null, "DIGA SUA  CIDADE:");
-         String estado = JOptionPane.showInputDialog(null,"DIGA SEU ESTADO:");
+       String resposta[] = new String[]{"Corrente","Poupança"};
+       int op = JOptionPane.showOptionDialog(null, "ESCOLHA O TIPO DE CONTA:", "BANCO SPFC", JOptionPane.YES_NO_OPTION, JOptionPane.DEFAULT_OPTION, null, resposta, resposta);
 
-         endereco = new Endereco(rua,cep,numeroDaCasa,bairro,cidade,estado);
-
-        cliente.setEndereco(endereco);*/
-       
-       
         Cliente cliente = new Cliente();
-
-        String senhaDeLogin = JOptionPane.showInputDialog(null, "INFORME UMA SENHA DE CADASTRO:");
-        Conta conta = new Conta(senhaDeLogin,cliente);
+        switch(op){
+            case 0:
+        String senha = JOptionPane.showInputDialog(null, "INFORME UMA SENHA DE CADASTRO:");
+         cc = new ContaCorrente(senha,cliente,"Corrente");
 
 
         for (Cliente c: clientes){
-        cpf  = JOptionPane.showInputDialog(null, "INFORME CPF DO CLIENTE:");
-        cpf = c.getCpf();
-    
-        if(lista.add(conta.getNmuConta()) && c.getCpf().equals(cpf)){
+       String CPF  = JOptionPane.showInputDialog(null, "INFORME CPF DO CLIENTE:");
+          
+        if(lista.add(cc.getNmuConta()) ){
+            contas.add(cc);
+        JOptionPane.showMessageDialog(null, "CONTA CADASTRADA COM SUCESSO!!");
 
-        contas.add(conta); 
         opcoes();
 
+        }    
+    
+    else{
+        JOptionPane.showMessageDialog(null, "IMPOSSIVEL ADICIONAR SUA CONTA:", null, 0);
+        opcoes();     
+    }
 
         }
-        else{
-            JOptionPane.showMessageDialog(null, "IMPOSSIVEL ADICIONAR SUA CONTA:", null, 0);
-            opcoes();
-        }
+        break;
+        case 1:
+         senha = JOptionPane.showInputDialog(null, "INFORME UMA SENHA DE CADASTRO:");
+         cp = new ContaPoupanca(senha,cliente,"Poupança");
+
+
+        for (Cliente c: clientes){
+       String CPF  = JOptionPane.showInputDialog(null, "INFORME CPF DO CLIENTE:");
+          
+        if(lista.add(cp.getNmuConta()) ){
+            contas.add(cp);
+        JOptionPane.showMessageDialog(null, "CONTA CADASTRADA COM SUCESSO!!");
+
+        opcoes();
+
+        }    
+    
+    else{
+        JOptionPane.showMessageDialog(null, "IMPOSSIVEL ADICIONAR SUA CONTA:", null, 0);
+        opcoes();
+        break;
     }
+    }
+}
+}
+        public static Cliente informarCliente (String cpf){
+            Cliente cliente = null;
+            if(clientes.size() > 0){
+                for(Cliente c : clientes){
+                    if (c.getCpf().equals(cpf)){
+                        cliente = c;
+                    }
+                }
+               
+            }
+            return cliente;
+
         }
         
         public static void cadastrarCliente(){
+
             Endereco endereco = new Endereco();
             
         String nome = JOptionPane.showInputDialog(null,"NOME DO CLIENTE:");
-        String cpf = JOptionPane.showInputDialog(null,"QUAL SEU CPF:");
+         cpf = JOptionPane.showInputDialog(null,"QUAL SEU CPF:");
         String data = JOptionPane.showInputDialog(null,"SUA DATA DE NASCIMENTO:");
 
         Cliente cliente = new Cliente(nome, cpf, data, endereco);
@@ -252,11 +282,12 @@ operacoes();
     }
 
     public static void dadosDoCliente(){
-        String s = senha;
+        String senha = JOptionPane.showInputDialog("INFORME SUA SENHA:");
+        
    for(Cliente cl: clientes){
     for(Conta c : contas){
-    if (c != null){
-        if(c.getSenha().equals(s)){
+    if (cl != null){
+        if(cl.getSenhaCliente().equals(senha)){
             JOptionPane.showMessageDialog(null,"CLIENTE: "+cl.getNome()
              + "\nDATA DE NASCIMENTO: " +cl.getDataDeNacimento()
             + "\nCPF: "+ cl.getCpf()
@@ -268,44 +299,19 @@ operacoes();
             + "\nUF: "+ cl.getEndereco().getRua());
             operacoes();
         }
+    
         else{
             JOptionPane.showMessageDialog(null, "SENHA INCORRETA!");
             opcoes();
         }
 
     }
-    else{
-        JOptionPane.showMessageDialog(null,"OPS NENHUM CLIENTE CADSTRADO!");
-        opcoes();
-    }
-}
+
    }
-opcoes();
+}
     }
-    private static String senha;
-    public static void fazerLogin() {
-         senha = JOptionPane.showInputDialog("SENHA:");
-         if (contas.size() > 0){
-        for (Conta c: contas){
-            
-            if(c.getSenha().equals(senha)){
-                operacoes();
-                }
-                if(c.getSenha() != c.getSenha()){
-                    opcoes();
-                }
-
-                }
-            }
-        
-        else{
-            JOptionPane.showMessageDialog(null, "OPS OUVE UM ERRO ESSA CONTA NÃO EXISTE!");
-            opcoes();
-        }
-      JOptionPane.showMessageDialog(null, "USUARIO OU SENHA INCORRETO","BANCO SPFC" ,0);
-      opcoes();
-    }
-
+   
+      
 }
 
 
