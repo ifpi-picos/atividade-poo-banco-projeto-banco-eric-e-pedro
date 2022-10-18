@@ -160,7 +160,7 @@ operacoes();
         cadastrarCliente();
         break;
         case 2:
-       operacoes();
+        operacoes();
         case 3:
         System.exit(1);
         break;
@@ -168,7 +168,7 @@ operacoes();
     }
 
     // função com o propósito de criar uma conta para determninado cliente
- private static String cpf;
+    
     public static void criarConta(){
         ContaCorrente cc = new ContaCorrente();
         ContaPoupanca cp = new ContaPoupanca();
@@ -183,11 +183,11 @@ operacoes();
         String senha = JOptionPane.showInputDialog(null, "INFORME UMA SENHA DE CADASTRO:");
          cc = new ContaCorrente(senha,cliente,"Corrente");
 
-
-        for (Cliente c: clientes){
+    
+        
        String CPF  = JOptionPane.showInputDialog(null, "INFORME CPF DO CLIENTE:");
-          
-        if(lista.add(cc.getNmuConta()) ){
+        Cliente  c = informarCliente(CPF);
+        if(lista.add(cc.getNmuConta()) && clientes.contains(c) ){
             contas.add(cc);
         JOptionPane.showMessageDialog(null, "CONTA CADASTRADA COM SUCESSO!!");
 
@@ -200,17 +200,15 @@ operacoes();
         opcoes();     
     }
 
-        }
+        
         break;
         case 1:
          senha = JOptionPane.showInputDialog(null, "INFORME UMA SENHA DE CADASTRO:");
          cp = new ContaPoupanca(senha,cliente,"Poupança");
 
-
-        for (Cliente c: clientes){
-       String CPF  = JOptionPane.showInputDialog(null, "INFORME CPF DO CLIENTE:");
-          
-        if(lista.add(cp.getNmuConta()) ){
+        CPF  = JOptionPane.showInputDialog(null, "INFORME CPF DO CLIENTE:");
+          c = informarCliente(CPF);
+        if(lista.add(cp.getNmuConta()) && clientes.contains(c) ){
             contas.add(cp);
         JOptionPane.showMessageDialog(null, "CONTA CADASTRADA COM SUCESSO!!");
 
@@ -224,8 +222,8 @@ operacoes();
         break;
     }
     }
-}
-}
+    }
+
         public static Cliente informarCliente (String cpf){
             Cliente cliente = null;
             if(clientes.size() > 0){
@@ -245,7 +243,7 @@ operacoes();
             Endereco endereco = new Endereco();
             
         String nome = JOptionPane.showInputDialog(null,"NOME DO CLIENTE:");
-         cpf = JOptionPane.showInputDialog(null,"QUAL SEU CPF:");
+         String cpf = JOptionPane.showInputDialog(null,"QUAL SEU CPF:");
         String data = JOptionPane.showInputDialog(null,"SUA DATA DE NASCIMENTO:");
 
         Cliente cliente = new Cliente(nome, cpf, data, endereco);
