@@ -2,14 +2,13 @@ package Banco;
 
 import javax.swing.JOptionPane;
 
-
-import formatações.Formatacao;
+import formatacoes.Formatacao;
 public class Conta{
 
 private int agencia;
 private String digito;
 private int numConta;
-private Double saldo;
+protected Double saldo;
 private Cliente cliente;
 private String usuario;
 private String senha;
@@ -18,15 +17,20 @@ protected String tipo;
 public Conta() {
 }
 
-public Conta(String senha,Cliente cliente,String tipo) {
-    this.cliente = cliente;
+public Conta(String usuario, String senha,String tipo,Cliente cliente) {
     this.saldo = 0.0;
     this.numConta =  (int) (10000000 + Math.random() * 89999999);
     this.agencia = 2211;
     this.usuario = usuario;
     this.senha = senha;
     this.tipo = tipo;
+    this.cliente = cliente;
 
+}
+
+
+public Conta(Cliente cliente) {
+    this.cliente = cliente;
 }
 
 public Conta(String senha) {
@@ -87,6 +91,7 @@ public void depositar(Double depositar){
     + "\n número da conta: " + this.getNmuConta()
     + "\n Agencia: " + this.getAgencia()
     + "\n Cliente: " + this.getCliente().getNome()
+
     + "\n SALDO: " + Formatacao.coversao(this.getSaldo());
     
     }
@@ -102,7 +107,6 @@ public void depositar(Double depositar){
     public void setSenha(String senha) {
         this.senha = senha;
     }
-
     public void setCliente(Cliente cliente) {
         this.cliente = cliente;
     }
@@ -110,6 +114,5 @@ public void depositar(Double depositar){
         return tipo;
     }
    
-    
 }
         

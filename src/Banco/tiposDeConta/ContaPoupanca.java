@@ -6,8 +6,8 @@ import Banco.Conta;
 public class ContaPoupanca extends Conta {
     private Double rendimento;
 
-    public ContaPoupanca(String senha, Cliente cliente,String tipo) {
-        super( senha, cliente,tipo);
+    public ContaPoupanca(String usuario ,String senha,String tipo,Cliente cliente) {
+        super(usuario, senha,tipo,cliente);
     }
     public ContaPoupanca(String tipo){
         super.tipo = "Poupança";
