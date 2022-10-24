@@ -73,7 +73,7 @@ operacoes();
 
    public static void saque(String usuario, String senha){
     int numConta = Integer.parseInt(JOptionPane.showInputDialog(null, "INFORME NUMERO DA CONTA!!"));
-   ContaCorrente conta = informarConta(numConta);
+   Conta conta = informarConta(numConta);
  if (conta != null){
     Double sacar = Double.parseDouble(JOptionPane.showInputDialog(null, "INFORME O VALOR QUE DESEJA SACAR:"));
     conta.sacar(sacar);
@@ -162,7 +162,7 @@ operacoes();
 
     public static void opcoes(){
 
-    String[] resposta = new String[]{"CRIAR CONTA","CADASTRAR CLIENTE","LOGIN","ENCERRAR"}; 
+    String[] resposta = new String[]{"CRIAR CONTA","LOGIN","ENCERRAR"}; 
     int opcao = JOptionPane.showOptionDialog(null, "ESCOLHA UMA OPÇÃO:", "BANCO SPFC", JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE, null, resposta,0);
     
     switch(opcao){
@@ -170,11 +170,8 @@ operacoes();
         criarConta();
         break;
         case 1:
-        cadastrarCliente();
-        break;
-        case 2:
         fazerLogin();
-        case 3:
+        case 2:
         System.exit(1);
         break;
     }
@@ -234,12 +231,31 @@ operacoes();
 
         break;
         case 1:
+
+          endereco = new Endereco();
+            
+            nome = JOptionPane.showInputDialog(null,"NOME DO CLIENTE:");
+            cpf = JOptionPane.showInputDialog(null,"QUAL SEU CPF:");
+            data = JOptionPane.showInputDialog(null,"SUA DATA DE NASCIMENTO:");
+    
+            cliente = new Cliente(nome, cpf, data, endereco);
+            rua = JOptionPane.showInputDialog(null,"NOME DA RUA:");
+             cep = JOptionPane.showInputDialog(null, "INFORME SEU CEP:");
+              numeroDaCasa = Integer.parseInt(JOptionPane.showInputDialog(null, "NÚMERO DA CASA:"));
+              bairro = JOptionPane.showInputDialog(null, "DIGA O SEU BAIRRO:");
+              cidade = JOptionPane.showInputDialog(null, "DIGA SUA  CIDADE:");
+              estado = JOptionPane.showInputDialog(null,"DIGA SEU ESTADO:");
+    
+             endereco = new Endereco(rua,cep,numeroDaCasa,bairro,cidade,estado);
+    
+            cliente.setEndereco(endereco);
+            
          usuario = JOptionPane.showInputDialog(null, "INFORME UM USÚARIO DE CADASTRO:");
 
          senha = JOptionPane.showInputDialog(null, "INFORME UMA SENHA DE CADASTRO:");
-         cp = new ContaPoupanca(usuario,senha,"Poupança",null);
+         cp = new ContaPoupanca(usuario,senha,"Poupança",cliente);
+         cp.setCliente(cliente);
 
-          
         if(lista.add(cp.getNmuConta()) ){
             contas.add(cp);
         JOptionPane.showMessageDialog(null, "CONTA CADASTRADA COM SUCESSO!!");
@@ -250,66 +266,22 @@ operacoes();
     
     else{
         JOptionPane.showMessageDialog(null, "IMPOSSIVEL ADICIONAR SUA CONTA:", null, 0);
-        opcoes();
-        
+        opcoes(); 
         break;
     }
     }
     }
-       public static Conta informarCliente (String cpf){
-        Cliente cliente  = new Cliente();
-            Conta conta = new Conta();
-            conta.setCliente(cliente);
-            if(contas.size() > 0){
-                for(Conta c : contas){
-                    if (c.getCliente().getCpf().equals(cpf)){
-                        conta = c;
-                    }
-                }
-               
-            }
-            return  conta;
-
-        }
-    
-        public static void cadastrarCliente(){
-
-            Endereco endereco = new Endereco();
-            
-        String nome = JOptionPane.showInputDialog(null,"NOME DO CLIENTE:");
-         String cpf = JOptionPane.showInputDialog(null,"QUAL SEU CPF:");
-        String data = JOptionPane.showInputDialog(null,"SUA DATA DE NASCIMENTO:");
-
-        Cliente cliente = new Cliente(nome, cpf, data, endereco);
-         
-         String rua = JOptionPane.showInputDialog(null,"NOME DA RUA:");
-         String cep = JOptionPane.showInputDialog(null, "INFORME SEU CEP:");
-         int numeroDaCasa = Integer.parseInt(JOptionPane.showInputDialog(null, "NÚMERO DA CASA:"));
-         String bairro = JOptionPane.showInputDialog(null, "DIGA O SEU BAIRRO:");
-         String cidade = JOptionPane.showInputDialog(null, "DIGA SUA  CIDADE:");
-         String estado = JOptionPane.showInputDialog(null,"DIGA SEU ESTADO:");
-
-         endereco = new Endereco(rua,cep,numeroDaCasa,bairro,cidade,estado);
-
-        cliente.setEndereco(endereco);
+      
         
-
-        Conta conta = new Conta(cliente);
-        conta.setCliente(cliente);
-
-
-        opcoes();
-
-        }
         
     // função com o propósito de verificar o número da conta de determninado cliente
 
-    public static ContaCorrente informarConta(int numeroDaConta){
-        ContaCorrente conta = null;
+    public static Conta informarConta(int numeroDaConta){
+        Conta conta = null;
         if (contas.size() > 0){
             for(Conta c : contas){
                 if (c.getNmuConta() == numeroDaConta){
-                conta = (ContaCorrente) c;   
+                conta =  c;   
             }
         }
         }
