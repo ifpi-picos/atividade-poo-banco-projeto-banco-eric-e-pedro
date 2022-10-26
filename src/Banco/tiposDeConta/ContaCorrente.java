@@ -38,8 +38,7 @@ public void depositar(Double depositar) {
         this.setDevendo(this.getDevendo() - devendo);
            
     super.depositar(depositar);
-
-     
+    
 }
 
 public void tranferencia(Conta transferir, Double valor) {
@@ -51,7 +50,7 @@ public void sacar(Double sacar) {
     
         this.setDevendo(sacar - this.getSaldo());
         this.setChequeEspecial(this.getChequeEspecial() - this.getDevendo());
-        this.setSaldo(this.getSaldo() + this.getChequeEspecial() - sacar);
+       //  this.setSaldo(this.getSaldo() + this.getChequeEspecial() - sacar);
         this.setSaldo(0.0);
 
     }
