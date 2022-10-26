@@ -46,7 +46,6 @@ public class Principal {
     for (Conta c : contas){
         if (numConta == c.getNmuConta() && usuario.equals(c.getUsuario())&& senha.equals(c.getSenha())){
 
-    
     Double depositar = Double.parseDouble(JOptionPane.showInputDialog(null, "INFORME O VALOR QUE DESEJA DEPOSITAR:"));
     if (conta.getTipo().equalsIgnoreCase("Corrente")){
     conta.depositar(depositar);

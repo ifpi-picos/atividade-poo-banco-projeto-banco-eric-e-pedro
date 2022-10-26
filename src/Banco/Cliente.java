@@ -7,8 +7,6 @@ public class Cliente  {
     private Endereco endereco;
     private Conta conta;
     
-    private String senhaCliente;
-
     public Cliente(){
 
     }
@@ -55,9 +53,6 @@ public class Cliente  {
         this.conta = conta;
     }
     
-    public String getSenhaCliente() {
-        return senhaCliente;
-    }
    
 }
 

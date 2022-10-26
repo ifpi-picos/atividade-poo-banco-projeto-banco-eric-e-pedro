@@ -9,10 +9,12 @@ import formatacoes.Formatacao;
 public class ContaCorrente extends Conta {
 
     private Double chequeEspecial;
+    private Double devendo;
 
     public ContaCorrente(String usuario ,String senha ,String tipo,Cliente cliente) {
         super(usuario, senha,tipo,cliente);
-        chequeEspecial = (double) 100;
+        this.chequeEspecial = (double) 100;
+        this.devendo = 0.0;
                  
     }
 public ContaCorrente(String tipo){
@@ -23,33 +25,38 @@ public ContaCorrente(String tipo){
 public ContaCorrente(){
     
 }
-@Override
+
 public void depositar(Double depositar) {
-    // TODO Auto-generate
+
+    this.setSaldo(this.getSaldo() - this.getDevendo());
+    this.setChequeEspecial(this.getChequeEspecial() + this.devendo);
+    
+        Double devendo = this.getDevendo();
+        this.setDevendo(this.getDevendo() - devendo);
+        this.setDevendo(this.getChequeEspecial() - this.getDevendo());
+        devendo = this.getDevendo();
+        this.setDevendo(this.getDevendo() - devendo);
+           
     super.depositar(depositar);
 
-    if (this.getChequeEspecial() < 100){
-        this.setSaldo(this.getSaldo()- depositar);
-    }
-
+     
 }
 
-@Override
 public void tranferencia(Conta transferir, Double valor) {
     super.tranferencia(transferir, valor);
 
 }
-@Override
 public void sacar(Double sacar) {
-    // TODO Auto-generated method stub
-    super.sacar(sacar);
     if (this.getSaldo() < sacar){
-        this.setSaldo(this.getSaldo() + this.getChequeEspecial());
-        JOptionPane.showMessageDialog(null, "SAQUE COM CHEQUE EFETUADO COM SUCESSO!");
+    
+        this.setDevendo(sacar - this.getSaldo());
+        this.setChequeEspecial(this.getChequeEspecial() - this.getDevendo());
+        this.setSaldo(this.getSaldo() + this.getChequeEspecial() - sacar);
+        this.setSaldo(0.0);
 
     }
-    else if(this.getSaldo() + this.getChequeEspecial() < sacar){
-        JOptionPane.showMessageDialog(null, "SALDO INSUFICIENTE:");
+    else {
+        super.sacar(sacar);
     }
 }
 public Double getChequeEspecial() {
@@ -65,10 +72,17 @@ public String statusDaConta() {
     + "\n Agencia: " + this.getAgencia()
    + "\n Cliente: " + this.getCliente().getNome()
     + "\n SALDO: " + Formatacao.coversao(this.getSaldo())
-    + "\n CHEQUE:"+ Formatacao.coversao(this.chequeEspecial);
+    + "\n CHEQUE:"+ Formatacao.coversao(this.chequeEspecial)
+    + "\n DEVENDO: "+ Formatacao.coversao(this.devendo);
 
     
     }
+public Double getDevendo() {
+    return devendo;
+}
+public void setDevendo(Double devendo) {
+    this.devendo = devendo;
+}
 }
 
 

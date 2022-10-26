@@ -27,9 +27,8 @@ public class ContaPoupanca extends Conta {
     public void depositar(Double depositar) {
         super.depositar(depositar);
         this.setSaldo(this.getSaldo() + this.getSaldo() * this.getRendimento());
-
     }
-    @Override
+    
     public void tranferencia(Conta transferir, Double valor) {
 super.tranferencia(transferir, valor);
 transferir.setSaldo(transferir.getSaldo() - (transferir.getSaldo() * 5/100));
