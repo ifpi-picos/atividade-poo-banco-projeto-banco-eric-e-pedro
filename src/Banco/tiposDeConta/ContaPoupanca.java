@@ -30,8 +30,15 @@ public class ContaPoupanca extends Conta {
     }
     
     public void tranferencia(Conta transferir, Double valor) {
-super.tranferencia(transferir, valor);
-transferir.setSaldo(transferir.getSaldo() - (transferir.getSaldo() * 5/100));
+    super.tranferencia(transferir, valor);
+    transferir.setSaldo(this.getSaldo() + (valor - (valor * 5/100)));
+
+
+
+
+
+
+
 
     
 

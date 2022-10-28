@@ -19,7 +19,7 @@ public Conta() {
 
 public Conta(String usuario, String senha,String tipo,Cliente cliente) {
     this.saldo = 0.0;
-    this.numConta =  (int) (10000000 + Math.random() * 89999999);
+    this.numConta =  (int) (100000 + Math.random() * 899999);
     this.agencia = 2211;
     this.usuario = usuario;
     this.senha = senha;
@@ -27,7 +27,6 @@ public Conta(String usuario, String senha,String tipo,Cliente cliente) {
     this.cliente = cliente;
 
 }
-
 
 public Conta(Cliente cliente) {
     this.cliente = cliente;
@@ -80,10 +79,7 @@ public void depositar(Double depositar){
             transferir.saldo = transferir.getSaldo() + valor;
             JOptionPane.showMessageDialog(null, "TRANSFERÊNCIA REALIZADA COM SUCESSO!!");      
         }
-        else{
-            JOptionPane.showMessageDialog(null, "IMPOSSIVEL REALIZAR A TRANSFERENCIA","TRANSFERÊNCIA",JOptionPane.ERROR_MESSAGE);
-
-        }
+        
     }
     
     public String statusDaConta() {
@@ -91,7 +87,6 @@ public void depositar(Double depositar){
     + "\n número da conta: " + this.getNmuConta()
     + "\n Agencia: " + this.getAgencia()
     + "\n Cliente: " + this.getCliente().getNome()
-
     + "\n SALDO: " + Formatacao.coversao(this.getSaldo());
     
     }

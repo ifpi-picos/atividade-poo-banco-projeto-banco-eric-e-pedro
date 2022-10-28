@@ -68,7 +68,7 @@ public class Principal {
 operacoes();
    }
 
-       // função  para fazer saque em determinada conta
+  // função  para fazer saque em determinada conta
 
    public static void saque(String usuario, String senha){
     int numConta = Integer.parseInt(JOptionPane.showInputDialog(null, "INFORME NUMERO DA CONTA!!"));
@@ -101,10 +101,7 @@ operacoes();
             contaDoRemetente.tranferencia(destino, valor);
         }
     }
-        else{
-            JOptionPane.showMessageDialog(null, "NÃO É POSSIVEL FAZER A TRASNFERÊNCIA!", null, JOptionPane.ERROR_MESSAGE);
-        }
-        
+           
     }
     }
     operacoes();
@@ -115,8 +112,9 @@ operacoes();
    public static void status(String usuariologin, String Senhalogin){
 
     if(contas.size() > 0){
-        
+    
         for(Conta conta: contas){
+            
             if(conta.getUsuario().contains(usuariologin) && conta.getSenha().contains(Senhalogin)){
             JOptionPane.showMessageDialog(null, conta.statusDaConta(), "contas", JOptionPane.INFORMATION_MESSAGE);
             operacoes();
@@ -183,11 +181,7 @@ operacoes();
         ContaPoupanca cp = new ContaPoupanca();
   
 
-       String resposta[] = new String[]{"Corrente","Poupança"};
-       int op = JOptionPane.showOptionDialog(null, "ESCOLHA O TIPO DE CONTA:", "BANCO SPFC", JOptionPane.YES_NO_OPTION, JOptionPane.DEFAULT_OPTION, null, resposta, resposta);
-        
-        switch(op){
-            case 0:
+       
             Endereco endereco = new Endereco();
             
             String nome = JOptionPane.showInputDialog(null,"NOME DO CLIENTE:");
@@ -212,9 +206,15 @@ operacoes();
         String senhalogin = JOptionPane.showInputDialog(null, "INFORME UMA SENHA DE CADASTRO:");
          cc = new ContaCorrente(usuariologin, senhalogin,"Corrente",cliente);
          cc.setCliente(cliente);
+         cp = new ContaPoupanca(usuariologin, senhalogin,"Poupança",cliente);
+         cp.setCliente(cliente);
 
-       
-        
+
+         String resposta[] = new String[]{"Corrente","Poupança"};
+         int op = JOptionPane.showOptionDialog(null, "ESCOLHA O TIPO DE CONTA:", "BANCO SPFC", JOptionPane.YES_NO_OPTION, JOptionPane.DEFAULT_OPTION, null, resposta, resposta);
+          
+          switch(op){
+              case 0:
         if(lista.add(cc.getNmuConta())){
             contas.add(cc);
         JOptionPane.showMessageDialog(null, "CONTA CADASTRADA COM SUCESSO!!");
@@ -230,30 +230,6 @@ operacoes();
 
         break;
         case 1:
-
-          endereco = new Endereco();
-            
-            nome = JOptionPane.showInputDialog(null,"NOME DO CLIENTE:");
-            cpf = JOptionPane.showInputDialog(null,"QUAL SEU CPF:");
-            data = JOptionPane.showInputDialog(null,"SUA DATA DE NASCIMENTO:");
-    
-            cliente = new Cliente(nome, cpf, data, endereco);
-            rua = JOptionPane.showInputDialog(null,"NOME DA RUA:");
-             cep = JOptionPane.showInputDialog(null, "INFORME SEU CEP:");
-              numeroDaCasa = Integer.parseInt(JOptionPane.showInputDialog(null, "NÚMERO DA CASA:"));
-              bairro = JOptionPane.showInputDialog(null, "DIGA O SEU BAIRRO:");
-              cidade = JOptionPane.showInputDialog(null, "DIGA SUA  CIDADE:");
-              estado = JOptionPane.showInputDialog(null,"DIGA SEU ESTADO:");
-    
-             endereco = new Endereco(rua,cep,numeroDaCasa,bairro,cidade,estado);
-    
-            cliente.setEndereco(endereco);
-            
-         usuario = JOptionPane.showInputDialog(null, "INFORME UM USÚARIO DE CADASTRO:");
-
-         senha = JOptionPane.showInputDialog(null, "INFORME UMA SENHA DE CADASTRO:");
-         cp = new ContaPoupanca(usuario,senha,"Poupança",cliente);
-         cp.setCliente(cliente);
 
         if(lista.add(cp.getNmuConta()) ){
             contas.add(cp);
@@ -314,24 +290,27 @@ operacoes();
 
    }
 
+   private static String usuario;
+   private static String senha;
     
-    static String usuario;
-    static String senha;
-
       public static void fazerLogin(){
         usuario = JOptionPane.showInputDialog(null, "INFORMNE SEU USUARIO:");
 
          senha = JOptionPane.showInputDialog(null, "INFORME SUA SENHA:");
-
+        
          for (Conta c : contas){
-            if (usuario.equals(c.getUsuario()) && senha.equals(c.getSenha())){
+            if (c.getUsuario().contains(usuario) && c.getSenha().contains(senha)){
                 operacoes();
 
             }
+           
+           
          }
+}
 
-      }
-    }
-    
+}
+
+
+
 
 
