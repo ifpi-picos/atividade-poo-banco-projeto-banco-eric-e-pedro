@@ -21,7 +21,7 @@ public class Principal {
         SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyy");
 
     String[] resposta = new String[]{"INICIAR","SAIR"}; 
-    int opcao = JOptionPane.showOptionDialog(null, "BEM VINDO AO BANCO SPFC", "BANCO MAUT", JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE, null, resposta,0);
+    int opcao = JOptionPane.showOptionDialog(null, "BEM VINDO AO BANCO SPFC", "BANCO SPFC", JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE, null, resposta,0);
     
     switch(opcao){
         case 0:
@@ -215,6 +215,7 @@ operacoes();
           
           switch(op){
               case 0:
+              // impede que aja números repetidos
         if(lista.add(cc.getNmuConta())){
             contas.add(cc);
         JOptionPane.showMessageDialog(null, "CONTA CADASTRADA COM SUCESSO!!");

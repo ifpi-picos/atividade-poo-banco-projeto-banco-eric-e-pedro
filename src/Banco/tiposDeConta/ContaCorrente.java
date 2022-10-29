@@ -16,11 +16,7 @@ public class ContaCorrente extends Conta {
         this.devendo = 0.0;
 
     }           
-    public ContaCorrente(String tipo){
-    super.tipo = "Corrente";
-
-}
-
+    
 public ContaCorrente(){
     
 }
@@ -33,7 +29,7 @@ public void depositar(Double depositar) {
       this.setChequeEspecial(this.getChequeEspecial() + this.devendo);
       this.setDevendo(this.getDevendo() - devendo);
     }
-
+  // caso deposito seja menor que o valor que o cliente esteja devendo ao cheque
     else{
         this.setSaldo(this.getDevendo() - depositar);
         this.setChequeEspecial(this.getChequeEspecial() + this.devendo);
@@ -80,8 +76,8 @@ public String statusDaConta() {
     + "\n Cliente: " + this.getCliente().getNome()
     + "\n SALDO: " + Formatacao.coversao(this.getSaldo())
     + "\n CHEQUE:"+ Formatacao.coversao(this.chequeEspecial)
-    + "\n DEVENDO: "+ Formatacao.coversao(this.devendo)
-    + "\n CONTAGEM: "+this.contagem;
+    + "\n DEVENDO: "+ Formatacao.coversao(this.devendo);
+    
   
     }
 public Double getDevendo() {

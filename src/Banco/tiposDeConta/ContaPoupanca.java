@@ -11,9 +11,7 @@ public class ContaPoupanca extends Conta {
         this.rendimento = 0.10;
 
     }
-    public ContaPoupanca(String tipo){
-        super.tipo = "Poupança";
-    }
+    
     public ContaPoupanca(){
         
     }
