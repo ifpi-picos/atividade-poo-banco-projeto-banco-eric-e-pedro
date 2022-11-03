@@ -91,7 +91,7 @@ public void sacar(Double sacar) {
        Double cheque = sacar - this.getSaldo();
        if(cheque <= this.getChequeEspecial()){
         String[] resposta = new String[]{"SMS","EMAIL"}; 
-    int opcao = JOptionPane.showOptionDialog(null, "NOTIFICAÇÃO", "BANCO SPFC", JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE, null, resposta,0);
+        int opcao = JOptionPane.showOptionDialog(null, "NOTIFICAÇÃO", "BANCO SPFC", JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE, null, resposta,0);
         this.setChequeEspecial(this.getChequeEspecial() - cheque);
         this.setDevendo(devendo - this.getChequeEspecial());
         this.setSaldo(0.0);
@@ -99,7 +99,7 @@ public void sacar(Double sacar) {
         sms.enviaNotificacao("SAQUE", sacar);
         }
         if(opcao == 1){
-            email.enviaNotificacao("SAQUE", sacar);
+        email.enviaNotificacao("SAQUE", sacar);
         }
 
        }

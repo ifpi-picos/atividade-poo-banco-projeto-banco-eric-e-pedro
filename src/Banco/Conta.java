@@ -81,9 +81,7 @@ public void depositar(Double depositar){
             if(opcao == 1){
                 email.enviaNotificacao("DEPÓSITO", depositar);
     }
-    
-
-    
+           
 }
     }
     public void tranferencia(Conta transferir, Double valor){

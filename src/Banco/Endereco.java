@@ -15,9 +15,13 @@ public class Endereco {
             this.bairro = bairro;
             this.cidade = cidade;
             this.uf = uf;
-        
+
         }
+        public Endereco() {
+        } 
         
+        public Endereco(String rua2, char[] cep2, int numeroDaCasa, String bairro2, String cidade2, String estado) {
+        }
         public String getBairro() {
             return bairro;
         }
@@ -50,10 +54,7 @@ public class Endereco {
         public int getNum_Da_Casa() {
             return num_Da_Casa;
         }
-
-        public Endereco() {
-        } 
-          
+     
         }
         
 

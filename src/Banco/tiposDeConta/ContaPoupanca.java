@@ -16,7 +16,6 @@ public class ContaPoupanca extends Conta {
     public ContaPoupanca(String usuario ,String senha,String tipo,Cliente cliente) {
         super(usuario,senha,tipo,cliente);
         this.rendimento = 0.10;
-
     }
     
     public ContaPoupanca(){
@@ -28,7 +27,7 @@ public class ContaPoupanca extends Conta {
     public void setRendimento(Double rendimento) {
         this.rendimento = rendimento;
     }
-    @Override
+    
     public void depositar(Double depositar) {
         super.depositar(depositar);
         this.setSaldo(this.getSaldo() + this.getSaldo() * this.getRendimento());
@@ -47,12 +46,12 @@ public class ContaPoupanca extends Conta {
         sms.enviaNotificacao("TRANSFERÊNCIA", envio);
         }
         if(opcao == 1){
-            email.enviaNotificacao("TRASFERÊNCIA", envio);
+        email.enviaNotificacao("TRANSFERÊNCIA", envio);
         }
 
 }
 else{
-    JOptionPane.showMessageDialog(null, "IMPOSSIVEL REALIZAR ESSA SUA TRANSFEÊNCIA!!");
+    JOptionPane.showMessageDialog(null, "IMPOSSIVEL REALIZAR ESSA SUA TRANSFERÊNCIA!!","TRANSFERÊNCIA",JOptionPane.ERROR_MESSAGE);
 }
 }
 }

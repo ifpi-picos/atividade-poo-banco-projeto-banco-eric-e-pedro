@@ -20,11 +20,5 @@ public class Formatacao {
         return mf.valueToString(txt);
         
     }
-public static void main(String[] args) throws ParseException {
-    String cpf = "08465062382";
 
- String nome = format(JOptionPane.showInputDialog(null, "INFORME SEU CPF:"), "###.###.###-##");
-
- JOptionPane.showMessageDialog(null,nome);
-}
 }
