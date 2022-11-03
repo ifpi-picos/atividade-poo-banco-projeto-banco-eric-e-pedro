@@ -17,6 +17,10 @@ public class ContaCorrente extends Conta {
 
     Sms sms = new Sms();
     Email email = new Email();
+
+    public ContaCorrente(){
+    
+    }
     public ContaCorrente(String usuario ,String senha ,String tipo,Cliente cliente) {
         super(usuario,senha,tipo,cliente);
         this.chequeEspecial = (double) 100;
@@ -24,9 +28,6 @@ public class ContaCorrente extends Conta {
 
     }           
     
-public ContaCorrente(){
-    
-}
 
 public void depositar(Double depositar) {
     Double devendo = this.getDevendo();
@@ -35,7 +36,7 @@ public void depositar(Double depositar) {
       super.depositar(depositar);
       this.setChequeEspecial(this.getChequeEspecial() + this.devendo);
       this.setDevendo(this.getDevendo() - devendo);
-      devendo = this.devendo;
+      this.setSaldo(this.getSaldo() - devendo);
     }
     else if(depositar <= 0){
         

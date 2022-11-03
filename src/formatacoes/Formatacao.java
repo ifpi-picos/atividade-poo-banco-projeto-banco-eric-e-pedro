@@ -3,8 +3,6 @@ package formatacoes;
 import java.text.DecimalFormat;
 import java.text.NumberFormat;
 import java.text.ParseException;
-
-import javax.swing.JOptionPane;
 import javax.swing.text.MaskFormatter;
 
 public class Formatacao {
@@ -18,7 +16,7 @@ public class Formatacao {
         MaskFormatter mf = new MaskFormatter(mascara);
         mf.setValueContainsLiteralCharacters(false);
         return mf.valueToString(txt);
-        
+  
     }
 
 }

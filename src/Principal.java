@@ -18,18 +18,13 @@ public class Principal {
 	 
      static ArrayList <Conta> contas;
      static HashSet <Integer> lista;
-     static DateTimeFormatter sdf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
-    static DateTimeFormatter sld = new SimpleDateFormat("dd/MM/yyy");
+     static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
-   
     public static void main(String[] args) throws HeadlessException, ParseException {
         
         lista = new HashSet<Integer>(); // impede a repetição do número da conta
         
         contas = new ArrayList<Conta>();
-
-    
-        SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyy");
 
     String[] resposta = new String[]{"INICIAR","SAIR"}; 
     int opcao = JOptionPane.showOptionDialog(null, "BEM VINDO AO BANCO SPFC", "BANCO SPFC", JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE, null, resposta,0);
@@ -204,7 +199,7 @@ operacoes();
         String nome = JOptionPane.showInputDialog(null,"NOME DO CLIENTE:");
         String cpf = Formatacao.format(JOptionPane.showInputDialog(null,"QUAL SEU CPF:"), "###.###.###-##");
 
-        LocalDate data = LocalDate.parse( JOptionPane.showInputDialog(null,"SUA DATA DE NASCIMENTO:"),sld);
+        LocalDate data = LocalDate.parse( JOptionPane.showInputDialog(null,"SUA DATA DE NASCIMENTO:"),dtf);
     
         cliente = new Cliente(nome, cpf, data, endereco);
              
