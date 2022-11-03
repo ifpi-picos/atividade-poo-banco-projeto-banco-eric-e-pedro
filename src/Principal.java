@@ -1,3 +1,5 @@
+import java.awt.HeadlessException;
+import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -7,16 +9,18 @@ import Banco.Conta;
 import Banco.Endereco;
 import Banco.tiposDeConta.ContaCorrente;
 import Banco.tiposDeConta.ContaPoupanca;
+import formatacoes.Formatacao;
 public class Principal {
-	
+	 
      static ArrayList <Conta> contas;
      static HashSet <Integer> lista;
    
-    public static void main(String[] args) {
+    public static void main(String[] args) throws HeadlessException, ParseException {
         
-        lista = new HashSet<Integer>();
+        lista = new HashSet<Integer>(); // impede a repetição do número da conta
         
         contas = new ArrayList<Conta>();
+
     
         SimpleDateFormat data = new SimpleDateFormat("dd/MM/yyy");
 
@@ -36,47 +40,46 @@ public class Principal {
            
     // função  para fazer deposito em determinada conta
 
-   public static void deposito(String usuario ,String senha){
-    int numConta = Integer.parseInt(JOptionPane.showInputDialog(null, "INFORME NUMERO DA CONTA!"));
-    
- 
-   Conta conta = informarConta(numConta);
+   public static void deposito(String usuario ,String senha) throws HeadlessException, ParseException{
 
- if (conta != null){
+    int numConta = Integer.parseInt(JOptionPane.showInputDialog(null, "INFORME NÚMERO DA CONTA!"));
+    int agencia  = Integer.parseInt(JOptionPane.showInputDialog(null, "INFORME A AGÊNCIA DO BANCO:"));
+    
+
+   Conta conta = informarConta(numConta);
+   Conta numeroAgencia = informarAgencia(agencia);
+
+ if (conta != null && numeroAgencia != null){
     for (Conta c : contas){
-        if (numConta == c.getNmuConta() && usuario.equals(c.getUsuario())&& senha.equals(c.getSenha())){
+        if (numConta == c.getNmuConta() && agencia == c.getAgencia() && usuario.equals(c.getUsuario())&& senha.equals(c.getSenha())){
 
     Double depositar = Double.parseDouble(JOptionPane.showInputDialog(null, "INFORME O VALOR QUE DESEJA DEPOSITAR:"));
-    if (conta.getTipo().equalsIgnoreCase("Corrente")){
+    
     conta.depositar(depositar);
 
-
+    
     }
-    else if(conta.getTipo().equalsIgnoreCase("Poupança")){
-        conta.depositar(depositar);
+     
     }  
     } 
-  /*else{
-        JOptionPane.showMessageDialog(null, "CONTA NÃO ENCONTRADA","DEPOSITO",JOptionPane.ERROR_MESSAGE);
-    }*/
-   
-}
- }
  else{
-    JOptionPane.showMessageDialog(null, "CONTA INEXISTENTE!!","DEPOSITO",JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, "CONTA NÃO ENCONTRADA","DEPOSITO",JOptionPane.ERROR_MESSAGE);
  }
+   
 operacoes();
    }
 
   // função  para fazer saque em determinada conta
 
-   public static void saque(String usuario, String senha){
+   public static void saque(String usuario, String senha) throws HeadlessException, ParseException{
     int numConta = Integer.parseInt(JOptionPane.showInputDialog(null, "INFORME NUMERO DA CONTA!!"));
    Conta conta = informarConta(numConta);
  if (conta != null){
     Double sacar = Double.parseDouble(JOptionPane.showInputDialog(null, "INFORME O VALOR QUE DESEJA SACAR:"));
     conta.sacar(sacar);
+
     
+
  }
  else{
     JOptionPane.showMessageDialog(null, "CONTA INEXISTENTE!!","SAQUE",JOptionPane.ERROR_MESSAGE);
@@ -86,7 +89,7 @@ operacoes();
 
     // função para fazer tranferencia em determinada conta
 
-   public static void transferencia(String usuario, String senha){
+   public static void transferencia(String usuario, String senha) throws HeadlessException, ParseException{
     int numContaREmetente = Integer.parseInt(JOptionPane.showInputDialog(null, "INFORME NUMERO DA CONTA DO REMETENTE:"));
 
     Conta contaDoRemetente = informarConta(numContaREmetente);
@@ -99,7 +102,9 @@ operacoes();
         if(destino != null){
             Double valor = Double.parseDouble(JOptionPane.showInputDialog(null, "QUAL VALOR DESEJA TRANSFERIR:"));
             contaDoRemetente.tranferencia(destino, valor);
+           
         }
+        
     }
            
     }
@@ -109,7 +114,7 @@ operacoes();
 
    // função para verifcar o status atual de uma determniada conta
 
-   public static void status(String usuariologin, String Senhalogin){
+   public static void status(String usuariologin, String Senhalogin) throws HeadlessException, ParseException{
 
     if(contas.size() > 0){
     
@@ -125,9 +130,9 @@ operacoes();
 }
    }
 
-       // função para mostar qual tipo de operação o cliente vai escolher
+       // função para mostrar qual tipo de operação o cliente vai escolher
 
-   public static void operacoes(){
+   public static void operacoes() throws HeadlessException, ParseException{
 
     String[] resposta = new String[]{"DEPOSITAR","SACAR","TRANSFERÊNCIA","STATUS DO CLIENTE","DADOS DO CLIENTE","VOLTAR"};
     
@@ -157,7 +162,7 @@ operacoes();
 
     // função criada com o propósito de msotrar um menu proncipal
 
-    public static void opcoes(){
+    public static void opcoes() throws HeadlessException, ParseException{
 
     String[] resposta = new String[]{"CRIAR CONTA","LOGIN","ENCERRAR"}; 
     int opcao = JOptionPane.showOptionDialog(null, "ESCOLHA UMA OPÇÃO:", "BANCO SPFC", JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE, null, resposta,0);
@@ -176,38 +181,41 @@ operacoes();
 
     // função com o propósito de criar uma conta para determninado cliente
     
-    public static void criarConta(){
+    public static void criarConta() throws HeadlessException, ParseException{
         ContaCorrente cc = new ContaCorrente();
         ContaPoupanca cp = new ContaPoupanca();
-  
+        Cliente cliente = new Cliente();
 
        
-            Endereco endereco = new Endereco();
+        Endereco endereco = new Endereco();
             
-            String nome = JOptionPane.showInputDialog(null,"NOME DO CLIENTE:");
-             String cpf = JOptionPane.showInputDialog(null,"QUAL SEU CPF:");
-            String data = JOptionPane.showInputDialog(null,"SUA DATA DE NASCIMENTO:");
+        String nome = JOptionPane.showInputDialog(null,"NOME DO CLIENTE:");
+        String cpf = JOptionPane.showInputDialog(null,"QUAL SEU CPF:");
+        String data = JOptionPane.showInputDialog(null,"SUA DATA DE NASCIMENTO:");
     
-            Cliente cliente = new Cliente(nome, cpf, data, endereco);
+        cliente = new Cliente(nome, cpf, data, endereco);
              
-             String rua = JOptionPane.showInputDialog(null,"NOME DA RUA:");
-             String cep = JOptionPane.showInputDialog(null, "INFORME SEU CEP:");
-             int numeroDaCasa = Integer.parseInt(JOptionPane.showInputDialog(null, "NÚMERO DA CASA:"));
-             String bairro = JOptionPane.showInputDialog(null, "DIGA O SEU BAIRRO:");
-             String cidade = JOptionPane.showInputDialog(null, "DIGA SUA  CIDADE:");
-             String estado = JOptionPane.showInputDialog(null,"DIGA SEU ESTADO:");
+        String rua = JOptionPane.showInputDialog(null,"NOME DA RUA:");
+        String cep = Formatacao.format(JOptionPane.showInputDialog(null, "INFORME SEU CEP:"), "#####-###");
+        int numeroDaCasa = Integer.parseInt(JOptionPane.showInputDialog(null, "NÚMERO DA CASA:"));
+        String bairro = JOptionPane.showInputDialog(null, "DIGA O SEU BAIRRO:");
+        String cidade = JOptionPane.showInputDialog(null, "DIGA SUA  CIDADE:");
+        String estado = JOptionPane.showInputDialog(null,"DIGA SEU ESTADO:");
+            /*if(cpf.length() > 11 || cep.length() > 8){
+                opcoes();
+            }*/
+
+        endereco = new Endereco(rua,cep,numeroDaCasa,bairro,cidade,estado);
     
-             endereco = new Endereco(rua,cep,numeroDaCasa,bairro,cidade,estado);
-    
-            cliente.setEndereco(endereco);
+        cliente.setEndereco(endereco);
             
-    
         String usuariologin = JOptionPane.showInputDialog(null, "INFORME UM USÚARIO DE CADASTRO:");
         String senhalogin = JOptionPane.showInputDialog(null, "INFORME UMA SENHA DE CADASTRO:");
-         cc = new ContaCorrente(usuariologin, senhalogin,"Corrente",cliente);
-         cc.setCliente(cliente);
-         cp = new ContaPoupanca(usuariologin, senhalogin,"Poupança",cliente);
-         cp.setCliente(cliente);
+        cc = new ContaCorrente(usuariologin, senhalogin,"Corrente",cliente);
+        cc.setCliente(cliente);
+
+        cp = new ContaPoupanca(usuariologin, senhalogin,"Poupança",cliente);
+        cp.setCliente(cliente);
 
 
          String resposta[] = new String[]{"Corrente","Poupança"};
@@ -265,26 +273,26 @@ operacoes();
         
     }
 
-    public static void dadosDoCliente(String usuariologin , String Senhalogin){
+    public static Conta informarAgencia(int agencia){
+        Conta conta = null;
+        if (contas.size() > 0){
+            for(Conta c : contas){
+                if (c.getAgencia() == agencia){
+                conta =  c;   
+            }
+        }
+        }
+        return conta;
+        
+    }
+
+    public static void dadosDoCliente(String usuariologin , String Senhalogin) throws HeadlessException, ParseException{
     
     for(Conta c : contas){
     if (c != null){
         if(c.getUsuario().contains(usuariologin) && c.getSenha().contains(Senhalogin)){
-            JOptionPane.showMessageDialog(null,"CLIENTE: "+c.getCliente().getNome()
-             + "\nDATA DE NASCIMENTO: " +c.getCliente().getDataDeNacimento()
-            + "\nCPF: "+ c.getCliente().getCpf()
-            + "\nRUA: "+ c.getCliente().getEndereco().getRua()
-            + "\nCEP: " +c.getCliente().getEndereco().getCep()
-            + "\nNÚMERO DA CASA: "+ c.getCliente().getEndereco().getNum_Da_Casa()
-            + "\nBAIRRO: "+ c.getCliente().getEndereco().getBairro()
-            + "\nCIDADE: "+c.getCliente().getEndereco().getCidade()
-            + "\nUF: "+ c.getCliente().getEndereco().getRua());
+            JOptionPane.showMessageDialog(null, c.statusDoCliente(), "CLIENTE", JOptionPane.INFORMATION_MESSAGE);
             operacoes();
-        }
-    
-        else{
-            JOptionPane.showMessageDialog(null, "SENHA INCORRETA!");
-            opcoes();
         }
     }
     }
@@ -294,22 +302,23 @@ operacoes();
    private static String usuario;
    private static String senha;
     
-      public static void fazerLogin(){
+    public static void fazerLogin() throws HeadlessException, ParseException{
+
         usuario = JOptionPane.showInputDialog(null, "INFORMNE SEU USUARIO:");
 
-         senha = JOptionPane.showInputDialog(null, "INFORME SUA SENHA:");
+        senha = JOptionPane.showInputDialog(null, "INFORME SUA SENHA:");
         
          for (Conta c : contas){
             if (c.getUsuario().contains(usuario) && c.getSenha().contains(senha)){
                 operacoes();
 
             }
-           
-           
-         }
+        }   
+        opcoes();
+    }   
 }
 
-}
+
 
 
 

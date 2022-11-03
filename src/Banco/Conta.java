@@ -2,6 +2,8 @@ package Banco;
 
 import javax.swing.JOptionPane;
 
+import Banco.notificacoes.Email;
+import Banco.notificacoes.Sms;
 import formatacoes.Formatacao;
 public class Conta{
 
@@ -14,12 +16,15 @@ private String usuario;
 private String senha;
 protected String tipo;
 
+Sms sms = new Sms();
+Email email = new Email();
+
 public Conta() {
 }
 
 public Conta(String usuario, String senha,String tipo,Cliente cliente) {
     this.saldo = 0.0;
-    this.numConta =  (int) (100000 + Math.random() * 899999);
+    this.numConta =  (int) (10 + Math.random() * 89);
     this.agencia = 2211;
     this.usuario = usuario;
     this.senha = senha;
@@ -28,13 +33,6 @@ public Conta(String usuario, String senha,String tipo,Cliente cliente) {
 
 }
 
-public Conta(Cliente cliente) {
-    this.cliente = cliente;
-}
-
-public Conta(String senha) {
-    this.senha = senha;
-}
 
 public int getAgencia() {
     return agencia;
@@ -54,8 +52,17 @@ public void setSaldo(Double saldo) {
 
 public void sacar(Double sacar) {
     if (this.getSaldo() > 0){
+        String[] resposta = new String[]{"SMS","EMAIL"}; 
+    int opcao = JOptionPane.showOptionDialog(null, "NOTIFICAÇÃO", "BANCO SPFC", JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE, null, resposta,0);
 
         this.setSaldo(this.getSaldo() - sacar);
+        if (opcao == 0){
+        sms.enviaNotificacao("SAQUE", sacar);
+        }
+        if (opcao == 1){
+            email.enviaNotificacao("SAQUE", sacar);
+
+        }
     }
     else{
         JOptionPane.showMessageDialog(null, "SALDO INSUFICIENTE","SAQUE",JOptionPane.ERROR_MESSAGE);
@@ -63,33 +70,41 @@ public void sacar(Double sacar) {
    
 }
 public void depositar(Double depositar){
-    if ( depositar > 0 ){
+    if (depositar > 0 ){
         this.setSaldo(this.getSaldo() + depositar);
         JOptionPane.showMessageDialog(null, "DEPOSITO EFETUADO COM SUCESSO");
-    }
-    else{
-        JOptionPane.showMessageDialog(null, "IMPOSSIVEL REALIZAR O DEPOSITO","DEPOSITO",JOptionPane.ERROR_MESSAGE);
-
+        String[] resposta = new String[]{"SMS","EMAIL"}; 
+        int opcao = JOptionPane.showOptionDialog(null, "NOTIFICAÇÃO", "BANCO SPFC", JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE, null, resposta,0);
+            if(opcao == 0){
+            sms.enviaNotificacao("DEPÓSITO", depositar);
+            }
+            if(opcao == 1){
+                email.enviaNotificacao("DEPÓSITO", depositar);
     }
     
+
+    
+}
     }
     public void tranferencia(Conta transferir, Double valor){
         if (this.getSaldo() >= valor && valor > 0 ){
             this.setSaldo(this.getSaldo() - valor);
             transferir.saldo = transferir.getSaldo() + valor;
-            JOptionPane.showMessageDialog(null, "TRANSFERÊNCIA REALIZADA COM SUCESSO!!");      
+            JOptionPane.showMessageDialog(null, "TRANSFERÊNCIA REALIZADA COM SUCESSO!!");  
+    String[] resposta = new String[]{"SMS","EMAIL"}; 
+    int opcao = JOptionPane.showOptionDialog(null, "NOTIFICAÇÃO", "BANCO SPFC", JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE, null, resposta,0);
+        if(opcao == 0){
+        sms.enviaNotificacao("TRANSFERÊNCIA", valor);
+        }
+        if(opcao == 1){
+            email.enviaNotificacao("TRASFERÊNCIA", valor);
+        }    
+
         }
         
     }
     
-    public String statusDaConta() {
-    return "\n Tipo: " +this.getTipo()
-    + "\n número da conta: " + this.getNmuConta()
-    + "\n Agencia: " + this.getAgencia()
-    + "\n Cliente: " + this.getCliente().getNome()
-    + "\n SALDO: " + Formatacao.coversao(this.getSaldo());
     
-    }
     public String getUsuario() {
         return usuario;
     }
@@ -108,6 +123,28 @@ public void depositar(Double depositar){
     public String getTipo() {
         return tipo;
     }
-   
+
+    public String statusDaConta() {
+        return "\n Tipo: " +this.getTipo()
+        + "\n número da conta: " + this.getNmuConta()
+        + "\n Agencia: " + this.getAgencia()
+        + "\n Cliente: " + this.getCliente().getNome()
+        + "\n SALDO: " + Formatacao.coversao(this.getSaldo());
+        
+        } 
+
+    public String statusDoCliente() {
+            return "\n CLIENTE: " +this.getCliente().getNome()
+            + "\n DATA: " + this.getCliente().getDataDeNacimento()
+            + "\n CPF: " + this.getCliente().getCpf()
+            + "\n CIDADE: " + this.getCliente().getEndereco().getCidade()
+            + "\n BAIRRO: " + this.getCliente().getEndereco().getBairro()
+            + "\n UF: " + this.getCliente().getEndereco().getUf()
+            + "\n RUA: " + this.getCliente().getEndereco().getRua()
+            + "\n Nº DA CASA: " + this.getCliente().getEndereco().getNum_Da_Casa()
+            + "\n CEP: " + this.getCliente().getEndereco().getCep();
+
+            
+            }
 }
         
