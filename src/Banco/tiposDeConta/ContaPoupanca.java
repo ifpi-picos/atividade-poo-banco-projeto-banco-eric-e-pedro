@@ -33,7 +33,7 @@ public class ContaPoupanca extends Conta {
         this.setSaldo(this.getSaldo() + this.getSaldo() * this.getRendimento());
     }
     
-    public void tranferencia(Conta transferir, Double valor) {
+    public void transfere(Conta transferir, Double valor) {
     if (valor > 0  && this.getSaldo() >= valor){
     Double tx = valor * 5/100;
     transferir.setSaldo(valor +( transferir.getSaldo() - tx));

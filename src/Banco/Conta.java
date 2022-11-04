@@ -8,7 +8,6 @@ import formatacoes.Formatacao;
 public class Conta{
 
 private int agencia;
-private String digito;
 private int numConta;
 protected Double saldo;
 private Cliente cliente;
@@ -24,7 +23,7 @@ public Conta() {
 
 public Conta(String usuario, String senha,String tipo,Cliente cliente) {
     this.saldo = 0.0;
-    this.numConta =  (int) (10 + Math.random() * 89);
+    this.numConta =  (int) (100000 + Math.random() * 890000);
     this.agencia = 2211;
     this.usuario = usuario;
     this.senha = senha;
@@ -79,18 +78,18 @@ public void depositar(Double depositar){
             sms.enviaNotificacao("DEPÓSITO", depositar);
             }
             if(opcao == 1){
-                email.enviaNotificacao("DEPÓSITO", depositar);
+            email.enviaNotificacao("DEPÓSITO", depositar);
     }
            
 }
     }
-    public void tranferencia(Conta transferir, Double valor){
+    public void transfere(Conta transferir, Double valor){
         if (this.getSaldo() >= valor && valor > 0 ){
             this.setSaldo(this.getSaldo() - valor);
             transferir.saldo = transferir.getSaldo() + valor;
             JOptionPane.showMessageDialog(null, "TRANSFERÊNCIA REALIZADA COM SUCESSO!!");  
-    String[] resposta = new String[]{"SMS","EMAIL"}; 
-    int opcao = JOptionPane.showOptionDialog(null, "NOTIFICAÇÃO", "BANCO SPFC", JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE, null, resposta,0);
+        String[] resposta = new String[]{"SMS","EMAIL"}; 
+        int opcao = JOptionPane.showOptionDialog(null, "NOTIFICAÇÃO", "BANCO SPFC", JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE, null, resposta,0);
         if(opcao == 0){
         sms.enviaNotificacao("TRANSFERÊNCIA", valor);
         }
@@ -99,8 +98,12 @@ public void depositar(Double depositar){
         }    
 
         }
+        else{
+             JOptionPane.showMessageDialog(null, "NÃO É POSSIVEL REALIZAR ESSE TRANFÊRENCIA VERIQUE SEU SALDO E TENTE NOVAMENTE","TRANSFERÊNCIA",JOptionPane.ERROR_MESSAGE);
+            }
+        }
         
-    }
+    
     
     
     public String getUsuario() {
@@ -124,9 +127,9 @@ public void depositar(Double depositar){
 
     public String statusDaConta() {
         return "\n Tipo: " +this.getTipo()
-        + "\n número da conta: " + this.getNmuConta()
-        + "\n Agencia: " + this.getAgencia()
-        + "\n Cliente: " + this.getCliente().getNome()
+        + "\n Nº DA CONTA " + this.getNmuConta()
+        + "\n AGÊNCIA: " + this.getAgencia()
+        + "\n CLIENTE: " + this.getCliente().getNome()
         + "\n SALDO: " + Formatacao.coversao(this.getSaldo());
         
         } 
@@ -141,8 +144,6 @@ public void depositar(Double depositar){
             + "\n RUA: " + this.getCliente().getEndereco().getRua()
             + "\n Nº DA CASA: " + this.getCliente().getEndereco().getNum_Da_Casa()
             + "\n CEP: " + this.getCliente().getEndereco().getCep();
-
-            
             }
 }
         

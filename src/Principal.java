@@ -1,12 +1,11 @@
 import java.awt.HeadlessException;
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.time.LocalDate;
 import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import javax.swing.JOptionPane;
-
+import javax.swing.JRootPane;
 
 import Banco.Cliente;
 import Banco.Conta;
@@ -104,7 +103,7 @@ operacoes();
 
         if(destino != null){
             Double valor = Double.parseDouble(JOptionPane.showInputDialog(null, "QUAL VALOR DESEJA TRANSFERIR:"));
-            contaDoRemetente.tranferencia(destino, valor);
+            contaDoRemetente.transfere(destino, valor);
            
         }
         
@@ -189,22 +188,23 @@ operacoes();
     // função com o propósito de criar uma conta para determninado cliente
     
     public static void criarConta() throws HeadlessException, ParseException{
+        try {
+            
         ContaCorrente cc = new ContaCorrente();
         ContaPoupanca cp = new ContaPoupanca();
         Cliente cliente = new Cliente();
 
-       
         Endereco endereco = new Endereco();
             
         String nome = JOptionPane.showInputDialog(null,"NOME DO CLIENTE:");
-        String cpf = Formatacao.format(JOptionPane.showInputDialog(null,"QUAL SEU CPF:"), "###.###.###-##");
+        String cpf = Formatacao.format(JOptionPane.showInputDialog(null,"QUAL SEU CPF:"), "###.###.###-##"); // deve se digitar o cpf com 11 numeros
 
-        LocalDate data = LocalDate.parse( JOptionPane.showInputDialog(null,"SUA DATA DE NASCIMENTO:"),dtf);
-    
+        LocalDate data = LocalDate.parse( JOptionPane.showInputDialog(null,"SUA DATA DE NASCIMENTO:"),dtf); // deve informa a data na forma padrao ("dd/MM/yyyy")
+
         cliente = new Cliente(nome, cpf, data, endereco);
              
         String rua = JOptionPane.showInputDialog(null,"NOME DA RUA:");
-        String cep = Formatacao.format(JOptionPane.showInputDialog(null, "INFORME SEU CEP:"), "#####-###");
+        String cep = Formatacao.format(JOptionPane.showInputDialog(null, "INFORME SEU CEP:"), "#####-###"); // deve se digitar o cep com 8 numeros
         int numeroDaCasa = Integer.parseInt(JOptionPane.showInputDialog(null, "NÚMERO DA CASA:"));
         String bairro = JOptionPane.showInputDialog(null, "DIGA O SEU BAIRRO:");
         String cidade = JOptionPane.showInputDialog(null, "DIGA SUA  CIDADE:");
@@ -215,21 +215,26 @@ operacoes();
         cliente.setEndereco(endereco);
             
         String usuariologin = JOptionPane.showInputDialog(null, "INFORME UM USÚARIO DE CADASTRO:");
+        for(Conta c: contas){
+        if (c.getUsuario().equals(usuariologin)){
+            JOptionPane.showMessageDialog(null, "USÚARIO JÁ CADASTRADO");
+            usuariologin = JOptionPane.showInputDialog(null, "INFORME UM USÚARIO DE CADASTRO:");
+        
+        }
+        }
         String senhalogin = JOptionPane.showInputDialog(null, "INFORME UMA SENHA DE CADASTRO:");
-        cc = new ContaCorrente(usuariologin, senhalogin,"Corrente",cliente);
+        cc = new ContaCorrente(usuariologin, senhalogin,"CORRENTE",cliente);
         cc.setCliente(cliente);
 
-        cp = new ContaPoupanca(usuariologin, senhalogin,"Poupança",cliente);
+        cp = new ContaPoupanca(usuariologin, senhalogin,"POUPANÇA",cliente);
         cp.setCliente(cliente);
-
 
          String resposta[] = new String[]{"CORRENTE","POUPANÇA"};
          int op = JOptionPane.showOptionDialog(null, "ESCOLHA O TIPO DE CONTA:", "BANCO SPFC", JOptionPane.YES_NO_OPTION, JOptionPane.DEFAULT_OPTION, null, resposta, resposta);
           
           switch(op){
               case 0:
-              // impede que aja números repetidos
-        if(lista.add(cc.getNmuConta())){
+        if(lista.add(cc.getNmuConta())){ // impede que aja números repetidos
             contas.add(cc);
         JOptionPane.showMessageDialog(null, "CONTA CADASTRADA COM SUCESSO!!");
 
@@ -260,9 +265,13 @@ operacoes();
     }
     }
     }
-      
-        
-        
+    catch (Exception e) {
+        JOptionPane.showMessageDialog(null,"OUVE UM ERRO VERIFIQUE E TENTE NOVAMENTE  "+e.getMessage());
+        opcoes();
+    
+    }
+}
+     
     // função com o propósito de verificar o número da conta de determninado cliente
 
     public static Conta informarConta(int numeroDaConta , int agencia){

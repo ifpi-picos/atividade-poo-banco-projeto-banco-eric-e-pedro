@@ -1,7 +1,5 @@
 package Banco.tiposDeConta;
 
-
-
 import javax.swing.JOptionPane;
 
 import Banco.Cliente;
@@ -25,6 +23,7 @@ public class ContaCorrente extends Conta {
         super(usuario,senha,tipo,cliente);
         this.chequeEspecial = (double) 100;
         this.devendo = 0.0;
+        this.contagem = 0;
 
     }           
     
@@ -57,15 +56,16 @@ public void depositar(Double depositar) {
 
 }
 
-public void tranferencia(Conta transferir, Double valor) {
+public void transfere(Conta transferir, Double valor) {
     this.contagem += 1;
-
     if (this.contagem <= 2){
-        super.tranferencia(transferir, valor);
+        super.transfere(transferir, valor);
     }
     else{
+        if (this.getSaldo() >= valor && valor > 0 ){
         Double tx = valor * 7/100;
         transferir.setSaldo(valor + (transferir.getSaldo() - tx));
+        this.setSaldo(this.getSaldo() - valor);
         Double envio = valor - tx;
         String[] resposta = new String[]{"SMS","EMAIL"}; 
     int opcao = JOptionPane.showOptionDialog(null, "NOTIFICAÇÃO", "BANCO SPFC", JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE, null, resposta,0);
@@ -75,6 +75,10 @@ public void tranferencia(Conta transferir, Double valor) {
         if(opcao == 1){
             email.enviaNotificacao("TRASFERÊNCIA", envio);
         }
+    }
+    else{
+        JOptionPane.showMessageDialog(null, "NÃO É POSSIVEL REALIZAR ESSE TRANFÊRENCIA VERIQUE SEU SALDO E TENTE NOVAMENTE","TRANSFERÊNCIA",JOptionPane.ERROR_MESSAGE);
+    }
     }
 
 }
@@ -129,13 +133,13 @@ public void setDevendo(Double devendo) {
 }
 public String statusDaConta() {
     super.statusDaConta();
-    return "\n Tipo: " +this.getTipo()
-    + "\n número da conta: " + this.getNmuConta()
-    + "\n Agencia: " + this.getAgencia()
+    return "\nTIPO: " +this.getTipo()
+    + "\n Nº DA CONTA: " + this.getNmuConta()
+    + "\n AGÊNCIA: " + this.getAgencia()
     + "\n CLIENTE: " + this.getCliente().getNome()
     + "\n SALDO: " + Formatacao.coversao(this.getSaldo())
     + "\n CHEQUE: "+ Formatacao.coversao(this.chequeEspecial)
-    + "\n DEVENDO: "+ Formatacao.coversao(this.devendo);
+    + "\n DEVENDO: " + Formatacao.coversao(this.devendo);
     
 }
 }
