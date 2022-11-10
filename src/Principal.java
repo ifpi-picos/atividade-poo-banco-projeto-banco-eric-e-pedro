@@ -5,14 +5,13 @@ import java.time.format.DateTimeFormatter;
 import java.util.ArrayList;
 import java.util.HashSet;
 import javax.swing.JOptionPane;
-import javax.swing.JRootPane;
-
 import Banco.Cliente;
 import Banco.Conta;
 import Banco.Endereco;
 import Banco.tiposDeConta.ContaCorrente;
 import Banco.tiposDeConta.ContaPoupanca;
 import formatacoes.Formatacao;
+
 public class Principal {
 	 
      static ArrayList <Conta> contas;
@@ -20,7 +19,7 @@ public class Principal {
      static DateTimeFormatter dtf = DateTimeFormatter.ofPattern("dd/MM/yyyy");
 
     public static void main(String[] args) throws HeadlessException, ParseException {
-        
+
         lista = new HashSet<Integer>(); // impede a repetição do número da conta
         
         contas = new ArrayList<Conta>();
@@ -217,9 +216,9 @@ operacoes();
         String usuariologin = JOptionPane.showInputDialog(null, "INFORME UM USÚARIO DE CADASTRO:");
         for(Conta c: contas){
         if (c.getUsuario().equals(usuariologin)){
-            JOptionPane.showMessageDialog(null, "USÚARIO JÁ CADASTRADO");
-            usuariologin = JOptionPane.showInputDialog(null, "INFORME UM USÚARIO DE CADASTRO:");
-        
+            JOptionPane.showMessageDialog(null, "USÚARIO JÁ CADASTRADO TENTE NOVAMENTE ");
+            opcoes();
+            
         }
         }
         String senhalogin = JOptionPane.showInputDialog(null, "INFORME UMA SENHA DE CADASTRO:");
@@ -266,7 +265,7 @@ operacoes();
     }
     }
     catch (Exception e) {
-        JOptionPane.showMessageDialog(null,"OUVE UM ERRO VERIFIQUE E TENTE NOVAMENTE  "+e.getMessage());
+        JOptionPane.showMessageDialog(null,"OUVE UM ERRO VERIFIQUE E TENTE NOVAMENTE!! "+e.getMessage());
         opcoes();
     
     }

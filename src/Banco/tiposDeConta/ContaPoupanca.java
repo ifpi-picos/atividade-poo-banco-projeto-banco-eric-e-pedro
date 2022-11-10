@@ -36,17 +36,16 @@ public class ContaPoupanca extends Conta {
     public void transfere(Conta transferir, Double valor) {
     if (valor > 0  && this.getSaldo() >= valor){
     Double tx = valor * 5/100;
-    transferir.setSaldo(valor +( transferir.getSaldo() - tx));
-    this.setSaldo(this.getSaldo() - valor);
-    Double envio = valor - tx;
+    transferir.setSaldo(transferir.getSaldo() + valor);
+    this.setSaldo(this.getSaldo() - (valor + tx));
 
     String[] resposta = new String[]{"SMS","EMAIL"}; 
     int opcao = JOptionPane.showOptionDialog(null, "NOTIFICAÇÃO", "BANCO SPFC", JOptionPane.YES_OPTION, JOptionPane.INFORMATION_MESSAGE, null, resposta,0);
         if(opcao == 0){
-        sms.enviaNotificacao("TRANSFERÊNCIA", envio);
+        sms.enviaNotificacao("TRANSFERÊNCIA", valor);
         }
         if(opcao == 1){
-        email.enviaNotificacao("TRANSFERÊNCIA", envio);
+        email.enviaNotificacao("TRANSFERÊNCIA", valor);
         }
 
 }

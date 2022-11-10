@@ -1,7 +1,6 @@
 package Banco.tiposDeConta;
 
 import javax.swing.JOptionPane;
-
 import Banco.Cliente;
 import Banco.Conta;
 import Banco.notificacoes.Email;
@@ -77,7 +76,7 @@ public void transfere(Conta transferir, Double valor) {
         }
     }
     else{
-        JOptionPane.showMessageDialog(null, "NÃO É POSSIVEL REALIZAR ESSE TRANFÊRENCIA VERIQUE SEU SALDO E TENTE NOVAMENTE","TRANSFERÊNCIA",JOptionPane.ERROR_MESSAGE);
+        JOptionPane.showMessageDialog(null, "NÃO É POSSIVEL REALIZAR ESSE TRANFÊRENCIA VERIFIQUE SEU SALDO E TENTE NOVAMENTE","TRANSFERÊNCIA",JOptionPane.ERROR_MESSAGE);
     }
     }
 
